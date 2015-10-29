@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SelectionList"
+            android:label="@string/title_activity_selection_list" >
+        </activity>
     </application>
 
 </manifest>
