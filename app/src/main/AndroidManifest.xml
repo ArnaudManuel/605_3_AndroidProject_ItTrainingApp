@@ -20,6 +20,14 @@
             android:name=".SelectionList"
             android:label="@string/title_activity_selection_list" >
         </activity>
+        <activity
+            android:name=".ModifyStudent"
+            android:label="@string/title_activity_modify_student" >
+        </activity>
+        <activity
+            android:name=".Modify_teacher"
+            android:label="@string/title_activity_modify_teacher" >
+        </activity>
     </application>
 
 </manifest>

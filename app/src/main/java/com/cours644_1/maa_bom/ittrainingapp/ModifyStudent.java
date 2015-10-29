@@ -1,23 +1,22 @@
 package com.cours644_1.maa_bom.ittrainingapp;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class SelectionList extends ListActivity {
+public class ModifyStudent extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection_list);
+        setContentView(R.layout.activity_modify_student);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selection_list, menu);
+        getMenuInflater().inflate(R.menu.menu_modify_student, menu);
         return true;
     }
 
