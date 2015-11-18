@@ -21,7 +21,11 @@
             android:label="@string/title_activity_selection_list" >
         </activity>
         <activity
-            android:name=".ModifyStudent"
+            android:name=".StudentView.ShowStudent"
+            android:label="@string/title_activity_selection_list" >
+        </activity>
+        <activity
+            android:name=".StudentView.ModifyStudent"
             android:label="@string/title_activity_modify_student" >
         </activity>
         <activity

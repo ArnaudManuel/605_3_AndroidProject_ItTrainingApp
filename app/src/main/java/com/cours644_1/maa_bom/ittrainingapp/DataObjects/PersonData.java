@@ -3,38 +3,33 @@ package com.cours644_1.maa_bom.ittrainingapp.DataObjects;
 /**
  * Created by arnaud on 14.11.2015.
  */
-public class PersonData {
+class PersonData {
     //TODO passer les STring en char[]
 
-    int id=-1;
-    String name="";
-    String firstname="";
-    String mail="";
-    String description="";
+    int id;
+    String name;
+    String firstname;
+    String mail;
+    String description;
+    boolean isStudent;
+    boolean isTeacher;
 
 
-    PersonData(){
-        id=-1;
-        name="";
-        firstname="";
-        mail="";
-        description="";
-    }
-    PersonData(int id, String name, String firstname, String mail, String description){
+
+    PersonData(int id, String name, String firstname, String mail, String description, boolean isStudent, boolean isTeacher){
         this.id=id;
         this.name=name;
         this.firstname=firstname;
         this.mail=mail;
         this.description= description;
+        this.isStudent=isStudent;
+        this.isTeacher=isTeacher;
     }
 
     PersonData getCopie(){
-        PersonData copie = new PersonData();
-        copie.id=this.id;
-        copie.name= this.name;
-        copie.firstname=this.firstname;
-        copie.mail=this.mail;
-        copie.description=this.description;
-        return copie;
+        return new PersonData(id, name, firstname, mail, description, isStudent, isTeacher);
+    }
+    static PersonData getDefault(){
+        return new PersonData(-1, "", "", "", "", false, false);
     }
 }

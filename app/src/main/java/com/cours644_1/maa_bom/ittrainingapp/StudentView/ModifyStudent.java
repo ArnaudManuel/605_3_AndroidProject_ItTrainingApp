@@ -1,9 +1,11 @@
-package com.cours644_1.maa_bom.ittrainingapp;
+package com.cours644_1.maa_bom.ittrainingapp.StudentView;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.cours644_1.maa_bom.ittrainingapp.R;
 
 public class ModifyStudent extends Activity {
 

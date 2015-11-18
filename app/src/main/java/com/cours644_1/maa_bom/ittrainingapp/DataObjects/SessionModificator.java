@@ -5,8 +5,9 @@ import java.util.Date;
  */
 public class SessionModificator extends Session {
 
-    SessionModificator(SessionData data) {
-        super(data);
+
+    SessionModificator(SessionData data, Cours cours, Room room) {
+        super(data, cours, room);
     }
 
     public void getcoursId(Cours cours) {

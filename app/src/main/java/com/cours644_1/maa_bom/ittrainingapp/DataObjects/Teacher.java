@@ -3,7 +3,7 @@ package com.cours644_1.maa_bom.ittrainingapp.DataObjects;
 /**
  * Created by arnaud on 14.11.2015.
  */
-public class Teacher {
+public class Teacher implements Comparable<Teacher>{
 
 
     protected PersonData data;
@@ -32,6 +32,15 @@ public class Teacher {
         return new TeacherModificator(data.getCopie());
     }
     public static TeacherModificator newForCreation(){
-        return new TeacherModificator(new PersonData());
+        return new TeacherModificator(PersonData.getDefault());
+    }
+    void update (PersonData data){
+        if(this.data.id== data.id)
+            this.data=data;
+    }
+
+    @Override
+    public int compareTo(Teacher another) {
+        return this.data.name.compareTo(another.data.name);
     }
 }

@@ -3,22 +3,27 @@ import java.util.Date;
 /**
  * Created by arnaud on 14.11.2015.
  */
-public class SessionData  {
+class SessionData  {
     //TODO passer les STring en char[]
     int id;
     int coursId;
-    int salleId;
+    int roomId;
     Date start;
     Date end;
 
+    SessionData(int id, Cours cours, Room room, Date start, Date end){
+        this(id, cours.getId(), room.getId(), start, end);
+    }
+    SessionData(int id,int coursId,  int roomId, Date start, Date end){
+        this.id=id;
+        this.coursId=coursId;
+        this.roomId=roomId;
+        this.start=start;
+        this.end=end;
+    }
+
     SessionData getCopie(){
-        SessionData copie = new SessionData();
-        copie.id=this.id;
-        copie.coursId=this.coursId;
-        copie.salleId=this.salleId;
-        copie.start=this.start;
-        copie.end=this.end;
-        return copie;
+        return new SessionData(id, coursId, roomId,  start, end);
     }
 
 }

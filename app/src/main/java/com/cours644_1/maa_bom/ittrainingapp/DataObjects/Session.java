@@ -3,11 +3,15 @@ import java.util.Date;
 /**
  * Created by arnaud on 14.11.2015.
  */
-public class Session {
+public class Session implements Comparable<Session>{
     protected SessionData data;
+    private Cours cours;
+    private Room room;
 
-    Session(SessionData data){
+    Session(SessionData data, Cours cours, Room room){
         this.data=data;
+        this.cours=cours;
+        this.room=room;
     }
 
     public int getId(){
@@ -17,7 +21,7 @@ public class Session {
         return data.coursId;
     }
     public int getSalleId() {
-        return data.salleId;
+        return data.roomId;
     }
     public Date getStart() {
         return data.start;
@@ -25,8 +29,25 @@ public class Session {
     public Date getEnd(){
         return data.end;
     }
+
+    public String getCoursName(){return cours.getName();}
+    public String getRoomName(){return room.getName();}
+
     public SessionModificator getModificator(){
-        return new SessionModificator(data.getCopie());
+        return new SessionModificator(data.getCopie(), cours, room);
     }
 
+    void update (SessionData data){
+        if(this.data.id== data.id)
+            this.data=data;
+    }
+
+    @Override
+    public int compareTo(Session another) {
+         int result;
+        if((result=this.data.start.compareTo(another.data.start))==0)
+            if((result=this.getCoursName().compareTo(another.getCoursName()))==0);
+        return  result;
+
+    }
 }

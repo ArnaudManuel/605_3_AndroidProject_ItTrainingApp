@@ -38,5 +38,6 @@
             android:text="Manage Session"
             android:id="@+id/mgtSessionButton"
             android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 </RelativeLayout>
