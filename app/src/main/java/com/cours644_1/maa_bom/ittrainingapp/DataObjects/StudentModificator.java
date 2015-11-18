@@ -17,9 +17,11 @@ public class StudentModificator extends Student {
     public void setMail(String mail){
         data.mail=mail;
     }
-    public boolean save(){
-        //TODO sauvegarde.
-        return false;
+
+
+    public void save(){
+        data.isStudent=true;
+        DataGeneralStore.store.save(this);
     }
 
 }

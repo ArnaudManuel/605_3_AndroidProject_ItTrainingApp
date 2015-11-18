@@ -3,25 +3,31 @@ package com.cours644_1.maa_bom.ittrainingapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
+import com.cours644_1.maa_bom.ittrainingapp.StudentView.ModifyStudent;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.ShowStudent;
 
 
 public class SelectionList extends Activity {
     Object[] items;
+    Button newStudentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection_list);
+
+        newStudentButton = (Button) findViewById(R.id.slection_list__add_new_item_button);
+        newStudentButton.setOnClickListener(new addNewStudent());
+
+
+
         populateListView();
         registerStudentClickCallback();
     }
@@ -29,12 +35,7 @@ public class SelectionList extends Activity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_selection_list, menu);
-        return true;
-    }
+
     private void populateListView() {
 
         items = DataGeneralStore.store.getStudentsList().toArray();
@@ -52,16 +53,25 @@ public class SelectionList extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                try {
+
                     int itemId=((Student)items[position]).getId();
 
                     Intent intent= new Intent(getApplicationContext(),ShowStudent.class);
                     intent.putExtra("personId",itemId);
                     startActivity(intent);
 
-                }catch (ClassCastException e){}
+
             }
         });
+    }
+    private class addNewStudent implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            Intent intent= new Intent(getApplicationContext(),ModifyStudent.class);
+            intent.putExtra("personId",-1);
+            startActivity(intent);
+        }
     }
 
 

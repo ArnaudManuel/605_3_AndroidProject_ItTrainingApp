@@ -27,9 +27,11 @@ public class Student implements Comparable<Student>{
     public StudentModificator getModificator(){
         return new StudentModificator(data.getCopie());
     }
+
     public static StudentModificator newForCreation(){
         return new StudentModificator(PersonData.getDefault());
     }
+
     void update (PersonData data){
         if(this.data.id== data.id)
             this.data=data;

@@ -28,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Modify"
-        android:id="@+id/modButton"
+        android:id="@+id/show_student__modifyButton"
         />
 </LinearLayout>

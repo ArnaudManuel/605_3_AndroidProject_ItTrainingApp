@@ -55,7 +55,13 @@ public class DataGeneralStore implements DataStore{
 
     @Override
     public void save(Student student) {
-        //todo save
+        if(onDebug)
+            testdata.save(student);
+        else
+        if(isCloudAvailabe)
+            cloud.save(student);
+        else
+            local.save(student);
     }
 
     @Override
@@ -109,7 +115,13 @@ public class DataGeneralStore implements DataStore{
 
     @Override
     public void save(Teacher teacher) {
-        //// TODO: save
+        if(onDebug)
+            testdata.save(teacher);
+        else
+        if(isCloudAvailabe)
+            cloud.save(teacher);
+        else
+            local.save(teacher);
     }
 
     @Override
