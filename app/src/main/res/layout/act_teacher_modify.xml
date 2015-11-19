@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_column="0">
+        >
 
         <EditText
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/nameTxtBx"
+            android:id="@+id/act_teacher_modify_nameTxtBx"
             android:layout_column="0" />
 
         <EditText
@@ -27,7 +27,7 @@
             android:inputType="textPersonName"
             android:text="Firstname"
             android:ems="10"
-            android:id="@+id/firstNameTxtBx"
+            android:id="@+id/act_teacher_modify_firstNameTxtBx"
             android:layout_column="0" />
 
         <EditText
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/mailTxtBx"
+            android:id="@+id/act_teacher_modify_mailTxtBx"
             android:layout_column="0"
             android:text="Mail" />
 
@@ -44,14 +44,14 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/descTxtBx"
+            android:id="@+id/act_teacher_modify_descTxtBx"
             android:text="Description" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:id="@+id/saveButton"
+            android:id="@+id/act_teacher_modify_saveButton"
             android:layout_column="0" />
 
         <ListView

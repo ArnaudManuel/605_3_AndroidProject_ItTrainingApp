@@ -3,35 +3,40 @@ package com.cours644_1.maa_bom.ittrainingapp.StudentView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.R;
-import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 
 /**
  * Created by arnaud on 14.11.2015.
  */
-public class ShowStudent extends Activity {
-    Student student;
-
+public final class ShowStudent extends Activity {
+    private Student student;
+    private TextView nameTxt;
+    private TextView firstnameTxt;
+    private TextView mailTxt;
+    private Button modifyButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.show_student);
+        setContentView(R.layout.act_student_show);
+
 
         student= DataGeneralStore.store.getStudentById(getIntent().getExtras().getInt("personId"));
+        nameTxt=(TextView)findViewById(R.id.act_student_show_nameTxt);
+        firstnameTxt=(TextView)findViewById(R.id.act_student_show_firstnameTxt);
+        mailTxt=(TextView)findViewById(R.id.act_student_show_mailTxt);
+        modifyButton = (Button) findViewById(R.id.act_student_show_modifyButton);
 
-        ((TextView)findViewById(R.id.nameTxt)).setText(student.getName());
-        ((TextView)findViewById(R.id.firstnameTxt)).setText(student.getFirstname());
-        ((TextView)findViewById(R.id.mailTxt)).setText(student.getMail());
 
-        Button modifyButton = (Button) findViewById(R.id.show_student__modifyButton);
+        nameTxt.setText(student.getName());
+        firstnameTxt.setText(student.getFirstname());
+        mailTxt.setText(student.getMail());
         modifyButton.setOnClickListener(new ModifyStudentAction());
     }
 

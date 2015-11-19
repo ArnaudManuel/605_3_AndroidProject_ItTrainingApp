@@ -11,7 +11,9 @@ import android.widget.Button;
 
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
+import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.ShowStudent;
+import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 
 public class MainActivity extends Activity {
 
@@ -20,11 +22,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button manageStudentBtn = (Button)findViewById(R.id.mgtStudentButton);
-        manageStudentBtn.setOnClickListener( new manageStudentAction());
+        Button manageStudentBtn = (Button)findViewById(R.id.act_home_student_button);
+        manageStudentBtn.setOnClickListener(new manageStudentAction());
 
-
-
+        Button manageTeacherBtn= (Button)findViewById(R.id.act_home_teacher_button);
+        manageTeacherBtn.setOnClickListener(new manageTeachertAction());
 
 
     }
@@ -58,7 +60,16 @@ public class MainActivity extends Activity {
         @Override
         public void onClick(View v) {
 
-            startActivity(new Intent(getApplicationContext(), SelectionList.class));
+            startActivity(new Intent(getApplicationContext(), OneStudent.class));
+        }
+    }
+    private class manageTeachertAction implements View.OnClickListener{
+
+
+        @Override
+        public void onClick(View v) {
+
+            startActivity(new Intent(getApplicationContext(), OneTeacher.class));
         }
     }
 }

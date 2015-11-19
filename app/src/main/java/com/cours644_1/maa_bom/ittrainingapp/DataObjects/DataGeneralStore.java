@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class DataGeneralStore implements DataStore{
     private final static boolean onDebug=true;
+
     public final static DataGeneralStore store=new DataGeneralStore();
     private final static DataStore testdata=new DataTestStore();
     private final static DataStore local=null;

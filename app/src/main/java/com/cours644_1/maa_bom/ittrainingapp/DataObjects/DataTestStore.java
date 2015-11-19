@@ -33,8 +33,6 @@ public class DataTestStore implements DataStore {
         TeachersCoursTable = new ArrayList<PersonCoursLink>();
         populateData();
     }
-
-
     private void populateData(){
 
         {//add persons
@@ -108,8 +106,6 @@ public class DataTestStore implements DataStore {
 
     }
 
-
-
     @Override
     public List<Student> getStudentsList() {
         List<Student> respons = new ArrayList<Student>();
@@ -157,8 +153,10 @@ public class DataTestStore implements DataStore {
 
     @Override
     public void save(Student student) {
-        if (student.getId()<0)
+        if (student.getId()<0) {
+            student.data.id=PersonsTable.size();
             PersonsTable.add(student.data);
+        }
         else
             for (PersonData personData:PersonsTable)
                 if(personData.id==student.getId()){
@@ -188,7 +186,7 @@ public class DataTestStore implements DataStore {
         List<Teacher> respons = new ArrayList<Teacher>();
 
         for (PersonData persData : PersonsTable){
-            if (persData.isStudent)
+            if (persData.isTeacher)
                 respons.add(new Teacher(persData));
         }
         return respons;
@@ -232,8 +230,10 @@ public class DataTestStore implements DataStore {
 
     @Override
     public void save(Teacher teacher) {
-        if (teacher.getId()<0)
+        if (teacher.getId()<0) {
+            teacher.data.id=PersonsTable.size();
             PersonsTable.add(teacher.data);
+        }
         else
             for (PersonData personData:PersonsTable)
                 if(personData.id==teacher.getId()){

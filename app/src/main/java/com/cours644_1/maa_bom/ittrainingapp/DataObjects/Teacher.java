@@ -38,6 +38,9 @@ public class Teacher implements Comparable<Teacher>{
         if(this.data.id== data.id)
             this.data=data;
     }
+    public String toString(){
+        return data.name +" "+data.firstname;
+    }
 
     @Override
     public int compareTo(Teacher another) {

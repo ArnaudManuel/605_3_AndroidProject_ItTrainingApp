@@ -20,9 +20,11 @@ public class TeacherModificator extends Teacher {
     public void setDescription(String description){
         data.description=description;
     }
-    public boolean save(){
-        //TODO sauvegarde.
-        return false;
+
+
+    public void save(){
+        data.isTeacher=true;
+        DataGeneralStore.store.save(this);
     }
 
 }

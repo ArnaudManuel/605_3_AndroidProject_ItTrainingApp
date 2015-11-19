@@ -6,30 +6,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.StudentModificator;
 import com.cours644_1.maa_bom.ittrainingapp.R;
-import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 
 public class ModifyStudent extends Activity {
-    StudentModificator student;
-    EditText nameTxtBx;
-    EditText firstnameTxtBx;
-    EditText mailTxtBx;
-    Button saveButton;
+    private StudentModificator student;
+    private EditText nameTxtBx;
+    private EditText firstnameTxtBx;
+    private EditText mailTxtBx;
+    private Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modify_student);
+        setContentView(R.layout.act_student_modify);
 
         {//seting properties of the object for a clearer acces
-            nameTxtBx = (EditText) findViewById(R.id.nameTxtBx);
-            firstnameTxtBx = (EditText) findViewById(R.id.firstNameTxtBx);
-            mailTxtBx = (EditText) findViewById(R.id.mailTxtBx);
-            saveButton = (Button) findViewById(R.id.saveButton);
+            nameTxtBx = (EditText) findViewById(R.id.act_student_modify_nameTxtBx);
+            firstnameTxtBx = (EditText) findViewById(R.id.act_student_modify_firstNameTxtBx);
+            mailTxtBx = (EditText) findViewById(R.id.act_student_modify_mailTxtBx);
+            saveButton = (Button) findViewById(R.id.act_student_modify_saveButton);
 
             //reaserchig of the proper student
             int studentId = getIntent().getExtras().getInt("personId", -1);
@@ -72,7 +70,7 @@ public class ModifyStudent extends Activity {
 
             student.save();
 
-            startActivity(new Intent(ModifyStudent.this.getApplicationContext(),SelectionList.class));
+            startActivity(new Intent(ModifyStudent.this.getApplicationContext(),OneStudent.class));
         }
     }
 }
