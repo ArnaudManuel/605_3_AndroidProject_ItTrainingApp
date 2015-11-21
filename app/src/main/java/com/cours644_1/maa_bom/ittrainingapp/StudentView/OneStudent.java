@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
+import com.cours644_1.maa_bom.ittrainingapp.MainActivity;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 
@@ -26,6 +27,9 @@ public final class OneStudent extends SelectionList {
 
         list.setAdapter(adapter);
     }
+
+
+
 
     @Override
     protected void setRegisterItemsClickCallback() {

@@ -17,6 +17,9 @@ class CoursData {
         this.name=name;
         this.description=description;
     }
+    static CoursData getDefault(){
+        return new CoursData(-1, "","");
+    }
 
     CoursData getCopie(){
         return new CoursData(id,name,description);

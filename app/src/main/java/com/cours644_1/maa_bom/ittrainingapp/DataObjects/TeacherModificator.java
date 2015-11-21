@@ -7,6 +7,7 @@ public class TeacherModificator extends Teacher {
 
     TeacherModificator(PersonData data) {
         super(data);
+        data.isTeacher=true;
     }
     public void setName(String name){
         data.name= name;

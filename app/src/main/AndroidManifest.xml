@@ -18,30 +18,36 @@
         </activity>
         <!-- Student -->
         <activity
+            android:name=".StudentView.OneStudent"
+            android:label="select on student"
+            >
+        </activity>
+        <activity
             android:name=".StudentView.ShowStudent"
-            android:label="@string/title_activity_selection_list" >
+            android:label="@string/title_activity_selection_list"
+           >
         </activity>
         <activity
             android:name=".StudentView.ModifyStudent"
-            android:label="@string/title_activity_modify_student" >
+            android:label="@string/title_activity_modify_student"
+           >
         </activity>
-        <activity
-            android:name=".StudentView.OneStudent"
-            android:label="select on student">
-            </activity>
+
         <!-- Teacher -->
         <activity
             android:name=".teacherView.OneTeacher"
-            android:label="select one teacher">
+            android:label="select one teacher"
+            >
         </activity>
         <activity
             android:name=".teacherView.ShowTeacher"
-            android:label="show teacher">
+            android:label="show teacher"
+            >
         </activity>
         <activity
             android:name=".teacherView.ModifyTeacher"
-            android:label="Modify teacher">
-
+            android:label="Modify teacher"
+            >
         </activity>
 
     </application>

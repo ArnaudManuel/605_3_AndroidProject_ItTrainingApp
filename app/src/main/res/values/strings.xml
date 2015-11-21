@@ -6,4 +6,5 @@
     <string name="title_activity_selection_list">SelectionList</string>
     <string name="title_activity_modify_student">ModifyStudent</string>
     <string name="title_activity_modify_teacher">Modify_teacher</string>
+    <string name="title_activity_test_fragment">testFragment</string>
 </resources>

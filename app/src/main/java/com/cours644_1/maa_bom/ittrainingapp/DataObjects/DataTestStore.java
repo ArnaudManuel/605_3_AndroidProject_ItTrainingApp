@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by arnaud on 14.11.2015.
  */
+//// TODO: 20.11.2015 implemntation 
 public class DataTestStore implements DataStore {
     private List<PersonData> PersonsTable;
     private List<CoursData> CoursesTable;
@@ -16,15 +17,17 @@ public class DataTestStore implements DataStore {
     private List<PersonCoursLink> StudentsCoursTable;
     private List<PersonCoursLink> TeachersCoursTable;
 
-    private class PersonCoursLink{
+    private class PersonCoursLink {
         private int personId;
         private int coursId;
-        private PersonCoursLink(int personId, int coursId){
-            this.personId=personId;
-            this.coursId=coursId;
+
+        private PersonCoursLink(int personId, int coursId) {
+            this.personId = personId;
+            this.coursId = coursId;
         }
     }
-    DataTestStore () {
+
+    DataTestStore() {
         PersonsTable = new ArrayList<PersonData>();
         CoursesTable = new ArrayList<CoursData>();
         SessionsTable = new ArrayList<SessionData>();
@@ -33,24 +36,25 @@ public class DataTestStore implements DataStore {
         TeachersCoursTable = new ArrayList<PersonCoursLink>();
         populateData();
     }
-    private void populateData(){
+
+    private void populateData() {
 
         {//add persons
-            PersonsTable.add(new PersonData(1, "Manuel", "Arnaud", "arnaud@manuel", "",true,false));
-            PersonsTable.add(new PersonData(2, "Borgeat", "maximilien", "boa@bax.hevs", "",true,false));
-            PersonsTable.add(new PersonData(3, "Shumarer", "", "", "Proffesor of patern",false,true));
-            PersonsTable.add(new PersonData(4, "LeCalvé", "Anne", "lecalvé@Anne.hevs", "proffesor of data",false,true));
-            PersonsTable.add(new PersonData(5, "Pascal", "Giordano", "", "",true,false));
-            PersonsTable.add(new PersonData(6, "Maurice", "Polo", "Maurice@Polo", "",true,false));
-            PersonsTable.add(new PersonData(7, "Franc", "Philippe", "Philippe@Franc", "",true,false));
-            PersonsTable.add(new PersonData(8, "Piot", "Vincent", "Piot@Vincent", "",true,false));
-            PersonsTable.add(new PersonData(9, "Barrere", "Frédéric", "Frédéric@manuel", "",true,false));
-            PersonsTable.add(new PersonData(10, "Mery", "Marc", "Marc@Mery", "",true,false));
-            PersonsTable.add(new PersonData(11, "Bouteille", "Thierry", "Thierry@Bouteille", "",true,false));
-            PersonsTable.add(new PersonData(12, "Kohler", "Henri", "Henri @Kohler", "",true,false));
-            PersonsTable.add(new PersonData(13, "Brault", "Mathieu", "Mathieu@Brault", "",true,false));
-            PersonsTable.add(new PersonData(14, "Baudoin", "Brault", "vBrault@Baudoin", "",true,false));
-            PersonsTable.add(new PersonData(15, "Carton", "Joseph", "Joseph@Carton", "",true,false));
+            PersonsTable.add(new PersonData(1, "Manuel", "Arnaud", "arnaud@manuel", "", true, false));
+            PersonsTable.add(new PersonData(2, "Borgeat", "maximilien", "boa@bax.hevs", "", true, false));
+            PersonsTable.add(new PersonData(3, "Shumarer", "", "", "Proffesor of patern", false, true));
+            PersonsTable.add(new PersonData(4, "LeCalvé", "Anne", "lecalvé@Anne.hevs", "proffesor of data", false, true));
+            PersonsTable.add(new PersonData(5, "Pascal", "Giordano", "", "", true, false));
+            PersonsTable.add(new PersonData(6, "Maurice", "Polo", "Maurice@Polo", "", true, false));
+            PersonsTable.add(new PersonData(7, "Franc", "Philippe", "Philippe@Franc", "", true, false));
+            PersonsTable.add(new PersonData(8, "Piot", "Vincent", "Piot@Vincent", "", true, false));
+            PersonsTable.add(new PersonData(9, "Barrere", "Frédéric", "Frédéric@manuel", "", true, false));
+            PersonsTable.add(new PersonData(10, "Mery", "Marc", "Marc@Mery", "", true, false));
+            PersonsTable.add(new PersonData(11, "Bouteille", "Thierry", "Thierry@Bouteille", "", true, false));
+            PersonsTable.add(new PersonData(12, "Kohler", "Henri", "Henri @Kohler", "", true, false));
+            PersonsTable.add(new PersonData(13, "Brault", "Mathieu", "Mathieu@Brault", "", true, false));
+            PersonsTable.add(new PersonData(14, "Baudoin", "Brault", "vBrault@Baudoin", "", true, false));
+            PersonsTable.add(new PersonData(15, "Carton", "Joseph", "Joseph@Carton", "", true, false));
         }
 
         { //add rooms
@@ -110,7 +114,7 @@ public class DataTestStore implements DataStore {
     public List<Student> getStudentsList() {
         List<Student> respons = new ArrayList<Student>();
 
-        for (PersonData persData : PersonsTable){
+        for (PersonData persData : PersonsTable) {
             if (persData.isStudent)
                 respons.add(new Student(persData));
         }
@@ -121,13 +125,13 @@ public class DataTestStore implements DataStore {
     public List<Student> getStudentsList(Cours cours) {
         List<Student> respons = new ArrayList<Student>();
 
-        for (PersonCoursLink studentLink:StudentsCoursTable){
-            if (studentLink.coursId==cours.getId()){
-                for (PersonData persData : PersonsTable){
-                   if(persData.id==studentLink.personId){
-                       respons.add(new Student(persData));
-                       break;
-                   }
+        for (PersonCoursLink studentLink : StudentsCoursTable) {
+            if (studentLink.coursId == cours.getId()) {
+                for (PersonData persData : PersonsTable) {
+                    if (persData.id == studentLink.personId) {
+                        respons.add(new Student(persData));
+                        break;
+                    }
                 }
             }
         }
@@ -138,10 +142,10 @@ public class DataTestStore implements DataStore {
     public List<Student> getStudentsList(Session session) {
         List<Student> respons = new ArrayList<Student>();
 
-        for (PersonCoursLink studentLink:StudentsCoursTable){
-            if (studentLink.coursId==session.getCoursId()){
-                for (PersonData persData : PersonsTable){
-                    if(persData.id==studentLink.personId){
+        for (PersonCoursLink studentLink : StudentsCoursTable) {
+            if (studentLink.coursId == session.getCoursId()) {
+                for (PersonData persData : PersonsTable) {
+                    if (persData.id == studentLink.personId) {
                         respons.add(new Student(persData));
                         break;
                     }
@@ -153,17 +157,16 @@ public class DataTestStore implements DataStore {
 
     @Override
     public void save(Student student) {
-        if (student.getId()<0) {
-            student.data.id=PersonsTable.size();
+        if (student.getId() < 0) {
+            student.data.id = PersonsTable.size();
             PersonsTable.add(student.data);
-        }
-        else
-            for (PersonData personData:PersonsTable)
-                if(personData.id==student.getId()){
-                    personData.name=student.getName();
-                    personData.firstname=student.getFirstname();
-                    personData.mail=student.getMail();
-                    personData.isStudent=true;
+        } else
+            for (PersonData personData : PersonsTable)
+                if (personData.id == student.getId()) {
+                    personData.name = student.getName();
+                    personData.firstname = student.getFirstname();
+                    personData.mail = student.getMail();
+                    personData.isStudent = true;
                     break;
                 }
 
@@ -172,10 +175,10 @@ public class DataTestStore implements DataStore {
     @Override
     public Student getStudentById(int id) {
         Student respons = null;
-        for (PersonData persData : PersonsTable){
-            if (persData.id==id){
-                respons= new Student(persData);
-            break;
+        for (PersonData persData : PersonsTable) {
+            if (persData.id == id) {
+                respons = new Student(persData);
+                break;
             }
         }
         return respons;
@@ -185,7 +188,7 @@ public class DataTestStore implements DataStore {
     public List<Teacher> getTeachersList() {
         List<Teacher> respons = new ArrayList<Teacher>();
 
-        for (PersonData persData : PersonsTable){
+        for (PersonData persData : PersonsTable) {
             if (persData.isTeacher)
                 respons.add(new Teacher(persData));
         }
@@ -196,10 +199,10 @@ public class DataTestStore implements DataStore {
     public List<Teacher> getTeachersList(Cours cours) {
         List<Teacher> respons = new ArrayList<Teacher>();
 
-        for (PersonCoursLink studentLink:StudentsCoursTable){
-            if (studentLink.coursId==cours.getId()){
-                for (PersonData persData : PersonsTable){
-                    if(persData.id==studentLink.personId){
+        for (PersonCoursLink studentLink : StudentsCoursTable) {
+            if (studentLink.coursId == cours.getId()) {
+                for (PersonData persData : PersonsTable) {
+                    if (persData.id == studentLink.personId) {
                         respons.add(new Teacher(persData));
                         break;
                     }
@@ -215,10 +218,10 @@ public class DataTestStore implements DataStore {
     public List<Teacher> getTeachersList(Session session) {
         List<Teacher> respons = new ArrayList<Teacher>();
 
-        for (PersonCoursLink studentLink:StudentsCoursTable){
-            if (studentLink.coursId==session.getCoursId()){
-                for (PersonData persData : PersonsTable){
-                    if(persData.id==studentLink.personId){
+        for (PersonCoursLink studentLink : StudentsCoursTable) {
+            if (studentLink.coursId == session.getCoursId()) {
+                for (PersonData persData : PersonsTable) {
+                    if (persData.id == studentLink.personId) {
                         respons.add(new Teacher(persData));
                         break;
                     }
@@ -230,18 +233,17 @@ public class DataTestStore implements DataStore {
 
     @Override
     public void save(Teacher teacher) {
-        if (teacher.getId()<0) {
-            teacher.data.id=PersonsTable.size();
+        if (teacher.getId() < 0) {
+            teacher.data.id = PersonsTable.size();
             PersonsTable.add(teacher.data);
-        }
-        else
-            for (PersonData personData:PersonsTable)
-                if(personData.id==teacher.getId()){
-                    personData.name=teacher.getName();
-                    personData.firstname=teacher.getFirstname();
-                    personData.mail=teacher.getMail();
-                    personData.description=teacher.getDescription();
-                    personData.isTeacher=true;
+        } else
+            for (PersonData personData : PersonsTable)
+                if (personData.id == teacher.getId()) {
+                    personData.name = teacher.getName();
+                    personData.firstname = teacher.getFirstname();
+                    personData.mail = teacher.getMail();
+                    personData.description = teacher.getDescription();
+                    personData.isTeacher = true;
                     break;
                 }
     }
@@ -249,13 +251,144 @@ public class DataTestStore implements DataStore {
     @Override
     public Teacher getTeacherById(int id) {
         Teacher respons = null;
-        for (PersonData persData : PersonsTable){
-            if (persData.id==id) {
+        for (PersonData persData : PersonsTable) {
+            if (persData.id == id) {
                 respons = new Teacher(persData);
                 break;
             }
         }
         return respons;
+    }
+
+    @Override
+    public List<Cours> getCoursList() {
+        List<Cours> respons = new ArrayList<Cours>();
+
+        for (CoursData coursData : CoursesTable) {
+            respons.add(new Cours(coursData));
+        }
+        return respons;
+    }
+
+    @Override
+    public Cours getCoursById(int id) {
+        Cours respons = null;
+
+        for (CoursData coursData : CoursesTable) {
+            if (coursData.id == id) {
+                respons = new Cours(coursData);
+                break;
+            }
+        }
+        return respons;
+    }
+
+    @Override
+    public List<Cours> getCoursFor(Student student) {
+        if (student == null)
+            return null;
+        List<Cours> respons = new ArrayList<Cours>();
+        for (PersonCoursLink actualCoursLink : StudentsCoursTable) {
+            if (actualCoursLink.personId == student.getId())
+                respons.add(getCoursById(actualCoursLink.coursId));
+        }
+        return respons;
+    }
+
+    @Override
+    public List<Cours> getCoursFor(Teacher teacher) {
+        if (teacher == null)
+            return null;
+        List<Cours> respons = new ArrayList<Cours>();
+        for (PersonCoursLink actualCoursLink : StudentsCoursTable) {
+            if (actualCoursLink.personId == teacher.getId())
+                respons.add(getCoursById(actualCoursLink.coursId));
+        }
+        return respons;
+    }
+
+    @Override
+    public void save(Cours cours) {
+        //TODO save cours
+
+    }
+
+    @Override
+    public Session getSessionById(int id) {
+        SessionData sesData = null;
+        for (SessionData sd : SessionsTable) {
+            if (sd.id == id) {
+                sesData = sd;
+                break;
+            }
+        }
+        if (sesData == null)
+            return null;
+        Cours cours = getCoursById(sesData.coursId);
+        Room room = getRoomById(sesData.roomId);
+        if (room == null || cours == null)
+            return null;
+
+        return new Session(sesData, cours, room);
+    }
+
+    @Override
+    public List<Session> getSessionFor(Cours cours) {
+        if (cours == null)
+            return null;
+        List<Session> respons = new ArrayList<Session>();
+        for (SessionData sessionData : SessionsTable) {
+            if (sessionData.coursId == cours.getId()) {
+                Cours ncours = getCoursById(sessionData.coursId);
+                Room room = getRoomById(sessionData.roomId);
+                if (room != null && ncours != null)
+                    respons.add(new Session(sessionData, ncours, room));
+            }
+        }
+        return respons;
+    }
+
+    @Override
+    public List<Session> getSessionFor(Teacher teacher) {
+        if (teacher == null)
+            return null;
+
+        List<Session> result = new ArrayList<Session>();
+        for (Cours cours : getCoursFor(teacher)) {
+            for (Session session : getSessionFor(cours))
+                result.add(session);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Session> getSessionFor(Student student) {
+        if (student == null)
+            return null;
+
+        List<Session> result = new ArrayList<Session>();
+        for (Cours cours : getCoursFor(student)) {
+            for (Session session : getSessionFor(cours))
+                result.add(session);
+        }
+        return result;
+    }
+
+
+    @Override
+    public void save(Session session) {
+//// TODO: 21.11.2015 implementation
+    }
+
+    private Room getRoomById(int id) {
+        Room room = null;
+        for (RoomData roomData : RoomsTable) {
+            if (roomData.id == id) {
+                room = new Room(roomData);
+                break;
+            }
+        }
+        return room;
     }
 
 

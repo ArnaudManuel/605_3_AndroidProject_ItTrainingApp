@@ -1,18 +1,13 @@
 package com.cours644_1.maa_bom.ittrainingapp;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
-import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
-import com.cours644_1.maa_bom.ittrainingapp.StudentView.ShowStudent;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 
 public class MainActivity extends Activity {
@@ -28,6 +23,8 @@ public class MainActivity extends Activity {
         Button manageTeacherBtn= (Button)findViewById(R.id.act_home_teacher_button);
         manageTeacherBtn.setOnClickListener(new manageTeachertAction());
 
+        Button manageCoursBtn =(Button)findViewById(R.id.act_home_cours_button);
+        manageCoursBtn.setOnClickListener(new  manageStudentFragmentAction());
 
     }
 
@@ -71,5 +68,18 @@ public class MainActivity extends Activity {
 
             startActivity(new Intent(getApplicationContext(), OneTeacher.class));
         }
+    }
+    private class manageStudentFragmentAction implements View.OnClickListener{
+
+
+        @Override
+        public void onClick(View v) {
+
+            //// TODO: 20.11.2015 passage au cours
+        }
+    }
+    public void onBackPressed()
+    {
+
     }
 }

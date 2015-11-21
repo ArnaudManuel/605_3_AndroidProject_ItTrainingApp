@@ -82,5 +82,10 @@ public abstract class SelectionList extends Activity {
             startActivity(intent);
         }
     }
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(SelectionList.this.getApplicationContext(), MainActivity.class));
+    }
 
 }

@@ -24,6 +24,7 @@ public class Student implements Comparable<Student>{
     public String getMail(){
         return data.mail;
     }
+
     public StudentModificator getModificator(){
         return new StudentModificator(data.getCopie());
     }

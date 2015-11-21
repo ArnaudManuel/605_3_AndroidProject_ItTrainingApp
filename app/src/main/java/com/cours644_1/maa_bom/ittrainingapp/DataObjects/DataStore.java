@@ -29,7 +29,21 @@ public interface DataStore {
     void save (Teacher teacher);
     Teacher getTeacherById(int id);
 
+    //used in the genneral cours list show off all teachers in database
+    List<Cours> getCoursList();
+    Cours getCoursById(int id);
+    List<Cours> getCoursFor(Student student);
+    List<Cours> getCoursFor(Teacher teacher);
+    void save(Cours cours);
 
+    Session getSessionById(int id);
+    //used to list session from cours
+    List<Session> getSessionFor(Cours cours);
+    //used to list sesson for a teacher
+    List<Session> getSessionFor(Teacher teacher);
+    //used to list sesson for a teacher
+    List<Session> getSessionFor(Student student);
+    void save(Session session);
 
 
 

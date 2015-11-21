@@ -27,6 +27,13 @@ public class Cours implements Comparable<Cours>{
         if(this.data.id== data.id)
             this.data=data;
     }
+    @Override
+    public String toString(){
+        return data.name;
+    }
+    public static  CoursModificator newForCreation(){
+        return new CoursModificator(CoursData.getDefault());
+    }
 
     @Override
     public int compareTo(Cours another) {
