@@ -32,6 +32,7 @@ public class Session implements Comparable<Session>{
 
     public String getCoursName(){return cours.getName();}
     public String getRoomName(){return room.getName();}
+    public String getCoursDesc(){return cours.getDescription();}
 
     public SessionModificator getModificator(){
         return new SessionModificator(data.getCopie(), cours, room);
@@ -46,7 +47,7 @@ public class Session implements Comparable<Session>{
     public int compareTo(Session another) {
          int result;
         if((result=this.data.start.compareTo(another.data.start))==0)
-            if((result=this.getCoursName().compareTo(another.getCoursName()))==0);
+            if((result=this.cours.compareTo(another.cours))==0);
         return  result;
 
     }

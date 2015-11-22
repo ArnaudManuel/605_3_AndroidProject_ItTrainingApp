@@ -50,6 +50,23 @@
             >
         </activity>
 
+        <!-- Cours -->
+        <activity
+            android:name=".coursView.OneCours"
+            android:label="select one coursr"
+            >
+        </activity>
+        <activity
+            android:name=".coursView.ShowCours"
+            android:label="show cours"
+            >
+        </activity>
+        <activity
+            android:name=".coursView.ModifyCours"
+            android:label="Modify cours"
+            >
+        </activity>
+
     </application>
 
 </manifest>

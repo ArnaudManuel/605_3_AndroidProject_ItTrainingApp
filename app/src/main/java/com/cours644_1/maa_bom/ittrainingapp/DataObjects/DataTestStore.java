@@ -300,7 +300,7 @@ public class DataTestStore implements DataStore {
         if (teacher == null)
             return null;
         List<Cours> respons = new ArrayList<Cours>();
-        for (PersonCoursLink actualCoursLink : StudentsCoursTable) {
+        for (PersonCoursLink actualCoursLink : TeachersCoursTable) {
             if (actualCoursLink.personId == teacher.getId())
                 respons.add(getCoursById(actualCoursLink.coursId));
         }
@@ -377,7 +377,7 @@ public class DataTestStore implements DataStore {
 
     @Override
     public void save(Session session) {
-//// TODO: 21.11.2015 implementation
+// TODO: 21.11.2015 implementation
     }
 
     private Room getRoomById(int id) {

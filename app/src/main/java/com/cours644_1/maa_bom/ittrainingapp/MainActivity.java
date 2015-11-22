@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
+import com.cours644_1.maa_bom.ittrainingapp.coursView.OneCours;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 
 public class MainActivity extends Activity {
@@ -18,13 +19,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Button manageStudentBtn = (Button)findViewById(R.id.act_home_student_button);
-        manageStudentBtn.setOnClickListener(new manageStudentAction());
+        manageStudentBtn.setOnClickListener(new ManageStudentAction());
 
         Button manageTeacherBtn= (Button)findViewById(R.id.act_home_teacher_button);
-        manageTeacherBtn.setOnClickListener(new manageTeachertAction());
+        manageTeacherBtn.setOnClickListener(new ManageTeachertAction());
 
         Button manageCoursBtn =(Button)findViewById(R.id.act_home_cours_button);
-        manageCoursBtn.setOnClickListener(new  manageStudentFragmentAction());
+        manageCoursBtn.setOnClickListener(new  ManageCoursAction());
 
     }
 
@@ -51,7 +52,7 @@ public class MainActivity extends Activity {
     }
 
 
-    private class manageStudentAction implements View.OnClickListener{
+    private class ManageStudentAction implements View.OnClickListener{
 
 
         @Override
@@ -60,7 +61,7 @@ public class MainActivity extends Activity {
             startActivity(new Intent(getApplicationContext(), OneStudent.class));
         }
     }
-    private class manageTeachertAction implements View.OnClickListener{
+    private class ManageTeachertAction implements View.OnClickListener{
 
 
         @Override
@@ -69,15 +70,15 @@ public class MainActivity extends Activity {
             startActivity(new Intent(getApplicationContext(), OneTeacher.class));
         }
     }
-    private class manageStudentFragmentAction implements View.OnClickListener{
-
+    private class ManageCoursAction implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
-
-            //// TODO: 20.11.2015 passage au cours
+            startActivity(new Intent(getApplicationContext(), OneCours.class));
         }
     }
+
+
     public void onBackPressed()
     {
 

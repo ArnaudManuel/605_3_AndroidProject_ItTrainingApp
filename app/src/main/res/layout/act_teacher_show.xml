@@ -7,6 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/act_teacher_show_nameTxt"
         />
@@ -16,11 +17,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/act_teacher_show_firstnameTxt"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/act_teacher_show_mailTxt"
         />
@@ -28,6 +31,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/act_teacher_show_descriptionTxt"
         />
@@ -38,5 +42,20 @@
         android:text="Modify"
         android:id="@+id/act_teacher_show_modifyButton"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="next Sessions"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5pt"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:id="@+id/act_teacher_show_sessions_list"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

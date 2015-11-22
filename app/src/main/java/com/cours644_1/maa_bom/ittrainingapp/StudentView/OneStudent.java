@@ -41,7 +41,17 @@ public final class OneStudent extends SelectionList {
         newItemButton.setText("add Student");//// TODO: 19.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewStudentAction());
     }
+   private class OnStudentClick implements AdapterView.OnItemClickListener{
 
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            int itemId=((Student)items[position]).getId();
+
+            Intent intent= new Intent(getApplicationContext(),ShowStudent.class);
+            intent.putExtra("personId",itemId);
+            startActivity(intent);
+        }
+    }
 
 
 

@@ -51,17 +51,7 @@ public abstract class SelectionList extends Activity {
         }
     }
 
-    public class OnStudentClick implements AdapterView.OnItemClickListener{
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            int itemId=((Student)items[position]).getId();
-
-            Intent intent= new Intent(getApplicationContext(),ShowStudent.class);
-            intent.putExtra("personId",itemId);
-            startActivity(intent);
-        }
-    }
 
     public class NewTeacherAction implements View.OnClickListener{
 
