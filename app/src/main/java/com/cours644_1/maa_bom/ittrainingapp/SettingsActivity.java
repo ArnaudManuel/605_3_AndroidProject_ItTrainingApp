@@ -1,13 +1,17 @@
 package com.cours644_1.maa_bom.ittrainingapp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.cours644_1.maa_bom.ittrainingapp.Settings.Preferences;
 
 /**
  * Created by Maximilien on 19.11.2015.
@@ -20,7 +24,7 @@ public class SettingsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_settings);
 
-
+        getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
 
     }
 
@@ -47,7 +51,8 @@ public class SettingsActivity extends Activity{
                 builder.setItems(colors, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // the user clicked on colors[which]
+                        ActionBar bar = getActionBar();
+                        bar.setBackgroundDrawable(new ColorDrawable(000000));
                     }
                 });
                 builder.show();
