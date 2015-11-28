@@ -2,7 +2,9 @@ package com.cours644_1.maa_bom.ittrainingapp.StudentView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,7 +38,7 @@ public final class ShowStudent extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_student_show);
         dataStore=DataGeneralStore.getStore(getApplicationContext());
-
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         student= dataStore.getStudentById(getIntent().getExtras().getInt("personId"));
         nameTxt=(TextView)findViewById(R.id.act_student_show_nameTxt);

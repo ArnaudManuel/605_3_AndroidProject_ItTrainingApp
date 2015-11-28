@@ -13,4 +13,7 @@
     <string name="theme">Thème</string>
     <string name="pref_summary">Définir la langue</string>
     <string name="pref_select_language">Choisir la langue</string>
+    <string name="langue">Langue</string>
+    <string name="police">Taille de police</string>
+    <string name="add_teacher">Ajouter un enseignant</string>
 </resources>

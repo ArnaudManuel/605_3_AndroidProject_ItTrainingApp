@@ -2,8 +2,10 @@ package com.cours644_1.maa_bom.ittrainingapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -13,12 +15,16 @@ import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
 import com.cours644_1.maa_bom.ittrainingapp.coursView.OneCours;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 
+import java.util.Locale;
+
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         Button manageStudentBtn = (Button)findViewById(R.id.act_home_student_button);
         manageStudentBtn.setOnClickListener(new ManageStudentAction());
@@ -81,9 +87,10 @@ public class MainActivity extends Activity {
         }
     }
 
-
+    @Override
     public void onBackPressed()
     {
-
+        finish();
     }
+
 }
