@@ -26,6 +26,7 @@ public class SettingsActivity extends Activity{
 
         getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
 
+
     }
 
     @Override

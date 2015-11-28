@@ -19,10 +19,19 @@ public final class OneTeacher extends SelectionList {
     @Override
     protected void specialise() {
         items = dataStore.getTeachersList().toArray();
-        ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(
+
+
+      adapter = new ArrayAdapter<Object>(
                 this,
                 R.layout.element_list_person,
                 items);
+
+        items = dataStore.getStudentsList().toArray();
+
+
+
+
+
         list.setOnItemClickListener(new OnTeacherClick());
         newItemButton.setText("add teacher");//// TODO: 19.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewTeacherAction());
