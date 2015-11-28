@@ -2,9 +2,11 @@ package com.cours644_1.maa_bom.ittrainingapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
@@ -52,12 +54,13 @@ public class MainActivity extends Activity {
     }
 
 
+
+
     private class ManageStudentAction implements View.OnClickListener{
 
 
         @Override
         public void onClick(View v) {
-
             startActivity(new Intent(getApplicationContext(), OneStudent.class));
         }
     }

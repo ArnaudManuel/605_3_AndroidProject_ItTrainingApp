@@ -19,25 +19,29 @@
             android:layout_gravity="center_horizontal" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Manage Teacher"
+            android:background="@drawable/businessman_256"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:id="@+id/act_home_teacher_button"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Manage Student"
+            android:background="@drawable/student_256"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:id="@+id/act_home_student_button"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Manage Cours"
+            android:background="@drawable/school_256"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:id="@+id/act_home_cours_button"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp" />
 
     </LinearLayout>
 </RelativeLayout>

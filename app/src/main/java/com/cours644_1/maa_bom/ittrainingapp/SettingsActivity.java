@@ -4,14 +4,15 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.cours644_1.maa_bom.ittrainingapp.Settings.Preferences;
+import java.util.Locale;
 
 /**
  * Created by Maximilien on 19.11.2015.
@@ -24,7 +25,13 @@ public class SettingsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_settings);
 
-        getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        changeLanguage(sharedPrefs.getString("pref_lang", "fr"));
+
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content,new SettingsFragment())
+                .commit();
+
 
 
     }
@@ -39,8 +46,16 @@ public class SettingsActivity extends Activity{
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent activity in AndroidManifest.xml 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void changeLanguage(String lang){
+        Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
     public void onClick(View v) {
