@@ -37,14 +37,15 @@ android:layout_gravity="center_horizontal">
     android:text=""
     android:layout_weight="1"
     android:id="@+id/act_session_modify_start_tampon" />
-<TextView
+<EditText
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:text="Large Text"
     android:layout_weight="1"
-    android:id="@+id/act_session_modify_start_date" />
-<TextView
+    android:id="@+id/act_session_modify_start_date"
+    android:onClick="showDatePickerDialog"/>
+<EditText
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge"
@@ -76,14 +77,14 @@ android:layout_gravity="center_horizontal">
     android:layout_weight="1"
     android:id="@+id/act_session_modify_end_tampon" />
 
-<TextView
+<EditText
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:text="Large Text"
     android:layout_weight="1"
     android:id="@+id/act_session_modify_end_date" />
-<TextView
+<EditText
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceLarge"

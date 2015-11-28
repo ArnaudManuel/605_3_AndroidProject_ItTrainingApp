@@ -1,8 +1,13 @@
 package com.cours644_1.maa_bom.ittrainingapp.sessionView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentContainer;
+import android.app.FragmentController;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
@@ -35,10 +41,10 @@ public class ModifySession extends Activity {
     private DataStore dataStore;
 
     private SessionModificator session;
-    private TextView startDayTxt;
-    private TextView startTimeTxt;
-    private TextView endDayTxt;
-    private TextView endTimeTxt;
+    private EditText startDayTxt;
+    private EditText startTimeTxt;
+    private EditText endDayTxt;
+    private EditText endTimeTxt;
     private TextView roomTxt;
     private Button saveButton;
     private SimpleDateFormat dayFormat;
@@ -58,10 +64,10 @@ public class ModifySession extends Activity {
         //Instanciation
         nameTxt=(TextView)findViewById(R.id.act_session_modify_cours_nameTxt);
         descriptionTxt = (TextView)findViewById(R.id.act_session_modify_cours_descriptionTxt);
-        startDayTxt = (TextView)findViewById(R.id.act_session_modify_start_date);
-        startTimeTxt = (TextView)findViewById(R.id.act_session_modify_start_time);
-        endDayTxt = (TextView)findViewById(R.id.act_session_modify_end_date);
-        endTimeTxt = (TextView)findViewById(R.id.act_session_modify_end_time);
+        startDayTxt = (EditText)findViewById(R.id.act_session_modify_start_date);
+        startTimeTxt = (EditText)findViewById(R.id.act_session_modify_start_time);
+        endDayTxt = (EditText)findViewById(R.id.act_session_modify_end_date);
+        endTimeTxt = (EditText)findViewById(R.id.act_session_modify_end_time);
         roomTxt = (TextView)findViewById(R.id.act_session_modify_roomNumberTxt);
         saveButton = (Button)findViewById(R.id.act_session_modify_save_Button);
         dayFormat = new SimpleDateFormat("yyyy/dd/MM");//// TODO: 21.11.2015 localiser préférence affichage de l'heure
@@ -85,12 +91,41 @@ public class ModifySession extends Activity {
         //ecriture des valeures dans les champs
         nameTxt.setText(cours.getName());
         descriptionTxt.setText(cours.getDescription());
-        startDayTxt.setOnClickListener(new OnDayClick(OnDayClick.START));
-        startTimeTxt.setOnClickListener(new OnTimeClick(OnTimeClick.START));
-        endDayTxt.setOnClickListener(new OnDayClick(OnDayClick.END));
-        endTimeTxt.setOnClickListener(new OnTimeClick(OnTimeClick.END));
-        refreshTimeField();
         saveButton.setOnClickListener(new SaveAction());
+
+        refreshTimeField();
+
+        //function call datepicker
+        startDayTxt.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            public void onClick(View v) {
+                DialogFragment newFragment = new DateDialog(DateDialog.START);
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+        endDayTxt.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            public void onClick(View v) {
+                DialogFragment newFragment = new DateDialog(DateDialog.END);
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+
+        //function call timepicker
+        startTimeTxt.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            public void onClick(View v) {
+                DialogFragment newFragment = new TimeDialog(TimeDialog.START);
+                newFragment.show(getFragmentManager(), "timePicker");
+            }
+        });
+        endTimeTxt.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
+            public void onClick(View v) {
+                DialogFragment newFragment = new TimeDialog(TimeDialog.END);
+                newFragment.show(getFragmentManager(), "timePicker");
+            }
+        });
 
 
         if(session.getRoomName().equals("")) {
@@ -123,118 +158,8 @@ public class ModifySession extends Activity {
         temp.toArray(availableRooms);
     }
 
-    private class OnDayClick implements View.OnClickListener{
-        private final static int START =0;
-        private final static int END=1;
-        private int mode;
-        private DatePickerDialog dialog;
 
 
-        private OnDayClick(int MODE){
-            mode=MODE%2;
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (mode){
-                case 0:
-                    dialog= new DatePickerDialog(
-                            getApplicationContext()
-                            , new DateSeter()
-                            ,start.get(Calendar.YEAR)
-                            ,start.get(Calendar.MONTH)
-                            ,start.get(Calendar.DAY_OF_MONTH));
-                    break;
-                case 1:
-                    dialog= new DatePickerDialog(
-                            getApplicationContext()
-                            , new DateSeter()
-                            ,end.get(Calendar.YEAR)
-                            ,end.get(Calendar.MONTH)
-                            ,end.get(Calendar.DAY_OF_MONTH));
-                    break;
-            }
-            dialog.show();
-        }
-        private class DateSeter implements DatePickerDialog.OnDateSetListener{
-
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                switch (mode){
-                    case 0:
-                        start.set(year, monthOfYear, dayOfMonth);
-                        if (start.after(end))
-                            end.setTime(start.getTime());
-                        break;
-                    case 1:
-                        end.set(year,monthOfYear,dayOfMonth);
-                        if (end.before(start))
-                            start.setTime(end.getTime());
-                        break;
-                }
-                refreshTimeField();
-                //// TODO: 24.11.2015 controle disponivbilité salles
-            }
-        }
-    }
-    private class OnTimeClick implements View.OnClickListener{
-        private final static int START =0;
-        private final static int END=1;
-        private int mode;
-        private TimePickerDialog dialog;
-
-        private OnTimeClick(int MODE){
-            mode=MODE%2;
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (mode){
-                case 0:
-                    dialog= new TimePickerDialog(
-                            getApplicationContext()
-                            ,new TimeSeter()
-                            ,start.get(Calendar.HOUR_OF_DAY)
-                            ,start.get(Calendar.MINUTE)
-                            ,true //TODO représente l'heure sur 24 heure (true) out sur 12 heure (false) place en fonction des préférences
-                    );
-                    break;
-                case 1:
-                    dialog= new TimePickerDialog(
-                            getApplicationContext()
-                            ,new TimeSeter()
-                            ,end.get(Calendar.HOUR_OF_DAY)
-                            ,end.get(Calendar.MINUTE)
-                            ,true //TODO représente l'heure sur 24 heure (true) out sur 12 heure (false) place en fonction des préférences
-                    );
-                    break;
-            }
-            dialog.show();
-        }
-        private class TimeSeter implements TimePickerDialog.OnTimeSetListener{
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                switch (mode){
-                    case 0:
-                        start.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        start.set(Calendar.MINUTE,minute);
-                        if (start.after(end))
-                            end.setTime(start.getTime());
-                        break;
-                    case 1:
-                        end.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        end.set(Calendar.MINUTE, minute);
-                        if (end.before(start))
-                            start.setTime(end.getTime());
-                        break;
-                }
-                refreshTimeField();
-                //// TODO: 24.11.2015 controle disponivbilité salles
-            }
-        }
-    }
     private class OnRoomClick implements View.OnClickListener{
 
         @Override
@@ -260,6 +185,111 @@ public class ModifySession extends Activity {
             Intent intent = new Intent(getApplicationContext(), ShowCours.class);
             intent.putExtra("coursId",cours.getId());
             startActivity(intent);
+        }
+    }
+
+
+
+    @SuppressLint({"NewApi", "ValidFragment"})
+    public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        private final static int START =0;
+        private final static int END=1;
+        private int mode;
+
+        private DateDialog(int MODE){
+            mode=MODE%2;
+        }
+
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int year = -1;
+            int month= -1;
+            int day = -1;
+
+            //change date end/start
+            switch (mode){
+                case 0:
+                    day = start.get(Calendar.YEAR);
+                    month = start.get(Calendar.MONTH);
+                    year = start.get(Calendar.DAY_OF_MONTH);
+                    break;
+                case 1:
+                    day = end.get(Calendar.YEAR);
+                    month = end.get(Calendar.MONTH);
+                    year = end.get(Calendar.DAY_OF_MONTH);
+                    break;
+            }
+            DatePickerDialog dpd = new DatePickerDialog(ModifySession.this, this, year, month, day);
+            return dpd;
+        }
+
+        @Override
+        public void onDateSet(android.widget.DatePicker view, int year, int month, int day) {
+            switch (mode){
+                case 0:
+                    start.set(year, month, day);
+                    if (start.after(end))
+                        end.setTime(start.getTime());
+                    break;
+                case 1:
+                    end.set(year,month,day);
+                    if (end.before(start))
+                        start.setTime(end.getTime());
+                    break;
+            }
+            refreshTimeField();
+        }
+    }
+
+
+
+    //function for timepicker
+
+    @SuppressLint({"NewApi", "ValidFragment"})
+    public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+        private final static int START =0;
+        private final static int END=1;
+        private int mode;
+
+        private TimeDialog(int MODE){
+            mode=MODE%2;
+        }
+
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int hour = -1;
+            int min= -1;
+
+            //change time end/start
+            switch (mode){
+                case 0:
+                    hour = start.get(Calendar.HOUR_OF_DAY);
+                    min = start.get(Calendar.MINUTE);
+                    break;
+                case 1:
+                    hour = end.get(Calendar.HOUR_OF_DAY);
+                    min = end.get(Calendar.MINUTE);
+                    break;
+            }
+            TimePickerDialog dpd = new TimePickerDialog(ModifySession.this, this, hour, min, true);
+            return dpd;
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hour, int min) {
+            switch (mode){
+                case 0:
+                    start.set(Calendar.HOUR_OF_DAY, hour);
+                    start.set(Calendar.MINUTE, min);
+                    if (start.after(end))
+                        end.setTime(start.getTime());
+                    break;
+                case 1:
+                    end.set(Calendar.HOUR_OF_DAY, hour);
+                    end.set(Calendar.MINUTE, min);
+                    if (end.before(start))
+                        start.setTime(end.getTime());
+                    break;
+            }
+            refreshTimeField();
         }
     }
 
