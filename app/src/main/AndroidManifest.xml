@@ -72,7 +72,14 @@
             android:label="Modify cours"
             >
         </activity>
+        <!-- Session -->
+        <activity android:name=".sessionView.SessionsList"
+            android:label="select one session or create new"
+            >
+        </activity>
+        <activity android:name=".sessionView.ModifySession">
 
+        </activity>
     </application>
 
 </manifest>

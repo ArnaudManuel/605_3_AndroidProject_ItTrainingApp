@@ -19,10 +19,4 @@ public class StudentModificator extends Student {
         data.mail=mail;
     }
 
-
-    public void save(){
-        data.isStudent=true;
-        DataGeneralStore.store.save(this);
-    }
-
 }

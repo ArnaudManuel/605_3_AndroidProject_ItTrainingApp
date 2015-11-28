@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
+import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.StudentModificator;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.TeacherModificator;
@@ -27,10 +28,12 @@ public class ModifyTeacher extends Activity {
     private EditText mailTxtBx;
     private EditText descriptionTxtBx;
     private Button saveButton;
+    private DataStore dataStore;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_teacher_modify);
+        dataStore= DataGeneralStore.getStore(getApplicationContext());
 
         {//seting properties of the object for a clearer acces
             nameTxtBx = (EditText) findViewById(R.id.act_teacher_modify_nameTxtBx);
@@ -44,7 +47,7 @@ public class ModifyTeacher extends Activity {
             if (teacherId < 0)
                 teacher = teacher.newForCreation();
             else
-                teacher = DataGeneralStore.store.getTeacherById(teacherId).getModificator();
+                teacher = dataStore.getTeacherById(teacherId).getModificator();
         }
         {//seting default values in the editText & action listener on button
             if(teacher.getId()<0){
@@ -107,7 +110,7 @@ public class ModifyTeacher extends Activity {
             if(!newDescription.equals(""))
                 teacher.setDescription(newDescription);
 
-            teacher.save();
+            dataStore.save(teacher);
 
             startActivity(new Intent(ModifyTeacher.this.getApplicationContext(),OneTeacher.class));
         }

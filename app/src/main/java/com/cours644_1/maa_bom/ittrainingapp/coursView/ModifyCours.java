@@ -12,11 +12,13 @@ import android.widget.EditText;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.CoursModificator;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
+import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.StudentModificator;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
+import com.cours644_1.maa_bom.ittrainingapp.sessionView.ModifySession;
 
 /**
  * Created by arnaud on 20.11.2015.
@@ -27,6 +29,7 @@ public class ModifyCours extends Activity {
     private EditText descriptionTxtBx;
     private Button saveButton;
     private Button newSessionButton;
+    private DataStore dataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,15 @@ public class ModifyCours extends Activity {
             descriptionTxtBx = (EditText) findViewById(R.id.act_cours_modify_descTxtBx);
             saveButton = (Button) findViewById(R.id.act_cours_modify_saveButton);
             newSessionButton = (Button) findViewById(R.id.act_cours_modify_createNewSessonButton);
+            dataStore= DataGeneralStore.getStore(getApplicationContext());
+
 
             //reaserchig of the proper student
             int coursId = getIntent().getExtras().getInt("coursId", -1);
             if (coursId < 0)
                 cours = Cours.newForCreation();
             else
-                cours = DataGeneralStore.store.getCoursById(coursId).getModificator();
+                cours = dataStore.getCoursById(coursId).getModificator();
         }
         {//seting default values in the editText & action listener on button
             if(cours.getId()<0){
@@ -99,15 +104,18 @@ public class ModifyCours extends Activity {
             if(!newDescription.equals(""))
                 cours.setDescription(newDescription);
 
-            cours.save();
+            dataStore.save(cours);
 
-            startActivity(new Intent(ModifyCours.this.getApplicationContext(),OneCours.class));
+            startActivity(new Intent(ModifyCours.this.getApplicationContext(), OneCours.class));
         }
     }
     private  class NewSessionAction implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-    //// TODO: 21.11.2015 new session
+            Intent intent = new Intent(getApplicationContext(), ModifySession.class);
+            intent.putExtra("coursId", cours.getId());
+            intent.putExtra("sessionId",-1);
+            startActivity(intent);
         }
     }
 }

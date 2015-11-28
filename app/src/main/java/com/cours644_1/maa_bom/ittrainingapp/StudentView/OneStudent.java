@@ -20,15 +20,18 @@ import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
  */
 public final class OneStudent extends SelectionList {
     @Override
-    protected void populateListView() {
-        items = DataGeneralStore.store.getStudentsList().toArray();
+    protected void specialise() {
+        items = dataStore.getStudentsList().toArray();
 
-        ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(
+        adapter = new ArrayAdapter<Object>(
                 this,
                 R.layout.element_list_person,
                 items);
 
-        list.setAdapter(adapter);
+        list.setOnItemClickListener(new OnStudentClick());
+        newItemButton.setText("add Student");//// TODO: 19.11.2015 localiser ressource
+        newItemButton.setOnClickListener(new NewStudentAction());
+
     }
 
     @Override
@@ -56,18 +59,17 @@ public final class OneStudent extends SelectionList {
     }
 
 
+    private class NewStudentAction implements View.OnClickListener{
 
-
-    @Override
-    protected void setRegisterItemsClickCallback() {
-        list.setOnItemClickListener(new OnStudentClick());
+        @Override
+        public void onClick(View v) {
+            Intent intent= new Intent(getApplicationContext(),ModifyStudent.class);
+            intent.putExtra("personId",-1);
+            startActivity(intent);
+        }
     }
 
-    @Override
-    protected void setButtonAction() {
-        newItemButton.setText("add Student");//// TODO: 19.11.2015 localiser ressource
-        newItemButton.setOnClickListener(new NewStudentAction());
-    }
+
    private class OnStudentClick implements AdapterView.OnItemClickListener{
 
         @Override

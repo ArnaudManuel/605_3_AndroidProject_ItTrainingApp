@@ -21,24 +21,14 @@ import com.cours644_1.maa_bom.ittrainingapp.teacherView.ModifyTeacher;
  */
 public class OneCours extends SelectionList {
     @Override
-    protected void populateListView() {
-        items = DataGeneralStore.store.getCoursList().toArray();
-
-        ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(
+    protected void specialise() {
+        items = dataStore.getCoursList().toArray();
+        adapter = new ArrayAdapter<Object>(
                 this,
                 R.layout.element_list_person,
                 items);
 
-        list.setAdapter(adapter);
-    }
-
-    @Override
-    protected void setRegisterItemsClickCallback() {
         list.setOnItemClickListener(new OnCoursClick());
-    }
-
-    @Override
-    protected void setButtonAction() {
         newItemButton.setText("add Cours");// // TODO: 21.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewCorsAction());
     }

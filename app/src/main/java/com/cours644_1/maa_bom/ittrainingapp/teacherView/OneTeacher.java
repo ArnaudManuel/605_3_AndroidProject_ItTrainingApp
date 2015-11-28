@@ -3,8 +3,11 @@ package com.cours644_1.maa_bom.ittrainingapp.teacherView;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
+import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Teacher;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
@@ -14,14 +17,15 @@ import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
  */
 public final class OneTeacher extends SelectionList {
     @Override
-    protected void populateListView() {
-        items = DataGeneralStore.store.getTeachersList().toArray();
-
+    protected void specialise() {
+        items = dataStore.getTeachersList().toArray();
         ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(
                 this,
                 R.layout.element_list_person,
                 items);
-        list.setAdapter(adapter);
+        list.setOnItemClickListener(new OnTeacherClick());
+        newItemButton.setText("add teacher");//// TODO: 19.11.2015 localiser ressource
+        newItemButton.setOnClickListener(new NewTeacherAction());
     }
 
     @Override
@@ -48,17 +52,27 @@ public final class OneTeacher extends SelectionList {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void setRegisterItemsClickCallback() {
-        list.setOnItemClickListener(new OnTeacherClick());
+    private class OnTeacherClick implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            int itemId=((Teacher)items[position]).getId();
+
+            Intent intent= new Intent(getApplicationContext(),ShowTeacher.class);
+            intent.putExtra("personId",itemId);
+            startActivity(intent);
+        }
     }
 
-    @Override
-    protected void setButtonAction() {
-        newItemButton.setText("add teacher");//// TODO: 19.11.2015 localiser ressource
-        newItemButton.setOnClickListener(new NewTeacherAction());
-    }
+    private class NewTeacherAction implements View.OnClickListener{
 
+        @Override
+        public void onClick(View v) {
+            Intent intent= new Intent(getApplicationContext(),ModifyTeacher.class);
+            intent.putExtra("personId",-1);
+            startActivity(intent);
+        }
+    }
 
 
 

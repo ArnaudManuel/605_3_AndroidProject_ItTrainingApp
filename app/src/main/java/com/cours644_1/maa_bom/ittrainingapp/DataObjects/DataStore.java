@@ -1,5 +1,6 @@
 package com.cours644_1.maa_bom.ittrainingapp.DataObjects;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,5 +47,7 @@ public interface DataStore {
     void save(Session session);
 
 
+    Room getRoomById(int id);
+    List<Room> getAvailableRooms(Date start, Date end);
 
 }

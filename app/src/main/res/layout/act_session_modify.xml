@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TextView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:ems="10"
+android:id="@+id/act_session_modify_cours_nameTxt"
+    />
+
+<TextView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:ems="10"
+android:id="@+id/act_session_modify_cours_descriptionTxt"
+    />
+<TextView
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:text="Strart"
+android:ems="10"
+android:id="@+id/act_session_modify_startTxt"
+    />
+<LinearLayout
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text=""
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_start_tampon" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Large Text"
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_start_date" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Large Text"
+    android:gravity="left"
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_start_time" />
+
+</LinearLayout>
+
+<TextView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="End"
+android:textAppearance="?android:attr/textAppearanceLarge"
+android:ems="10"
+android:id="@+id/act_session_modify_endTxt"
+    />
+<LinearLayout
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text=""
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_end_tampon" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Large Text"
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_end_date" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="Large Text"
+    android:gravity="left"
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_end_time" />
+
+</LinearLayout>
+<LinearLayout
+android:orientation="horizontal"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_gravity="center_horizontal">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="room:"
+    android:id="@+id/act_session_modify_roomTxt"
+    />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:text="room number"
+    android:paddingLeft="10dp"
+    android:layout_weight="1"
+    android:id="@+id/act_session_modify_roomNumberTxt"
+    />
+</LinearLayout>
+
+<Button
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Save"
+android:id="@+id/act_session_modify_save_Button"
+android:layout_gravity="center_horizontal" />
+
+
+    </LinearLayout>

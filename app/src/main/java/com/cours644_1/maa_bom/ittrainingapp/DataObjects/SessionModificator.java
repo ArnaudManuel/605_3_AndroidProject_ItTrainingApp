@@ -4,27 +4,24 @@ import java.util.Date;
  * Created by arnaud on 14.11.2015.
  */
 public class SessionModificator extends Session {
-
-
     SessionModificator(SessionData data, Cours cours, Room room) {
         super(data, cours, room);
     }
+    //SessionModificator(SessionData data){super( data);}
 
-    public void getcoursId(Cours cours) {
+    public void setCours(Cours cours) {
         data.coursId=cours.getId();
+        this.cours=cours;
     }
-    public void setsalleId() {
-        //TODO mettre salle;
+    public void setRoom(Room room) {
+        data.roomId=room.getId();
+        this.room=room;
     }
+
     public void setStart(Date start) {
         data.start=start ;
     }
-    public void getEnd(Date end){
+    public void setEnd(Date end){
         data.end= end;
     }
-    public boolean save(){
-        //TODO sauvegarde
-        return false;
-    }
-
 }

@@ -16,6 +16,7 @@ public class DataTestStore implements DataStore {
     private List<RoomData> RoomsTable;
     private List<PersonCoursLink> StudentsCoursTable;
     private List<PersonCoursLink> TeachersCoursTable;
+    private static DataTestStore me;
 
     private class PersonCoursLink {
         private int personId;
@@ -26,8 +27,7 @@ public class DataTestStore implements DataStore {
             this.coursId = coursId;
         }
     }
-
-    DataTestStore() {
+    private void initialise(){
         PersonsTable = new ArrayList<PersonData>();
         CoursesTable = new ArrayList<CoursData>();
         SessionsTable = new ArrayList<SessionData>();
@@ -36,6 +36,18 @@ public class DataTestStore implements DataStore {
         TeachersCoursTable = new ArrayList<PersonCoursLink>();
         populateData();
     }
+
+    public static DataTestStore getMe(){
+        if (me==null){
+            me= new DataTestStore();
+            me.initialise();
+        }
+        return me;
+
+    }
+
+
+
 
     private void populateData() {
 
@@ -380,7 +392,7 @@ public class DataTestStore implements DataStore {
 // TODO: 21.11.2015 implementation
     }
 
-    private Room getRoomById(int id) {
+     public Room getRoomById(int id) {
         Room room = null;
         for (RoomData roomData : RoomsTable) {
             if (roomData.id == id) {
@@ -389,6 +401,14 @@ public class DataTestStore implements DataStore {
             }
         }
         return room;
+    }
+
+    @Override
+    public List<Room> getAvailableRooms(Date start, Date end) {
+        List<Room> respons= new ArrayList<Room>();
+        for (RoomData roomData : RoomsTable)
+            respons.add(new Room(roomData));
+        return respons;
     }
 
 

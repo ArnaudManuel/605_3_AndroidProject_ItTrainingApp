@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
+import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.StudentModificator;
 import com.cours644_1.maa_bom.ittrainingapp.R;
@@ -20,6 +21,7 @@ public class ModifyStudent extends Activity {
     private EditText firstnameTxtBx;
     private EditText mailTxtBx;
     private Button saveButton;
+    private DataStore dataStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,14 @@ public class ModifyStudent extends Activity {
             firstnameTxtBx = (EditText) findViewById(R.id.act_student_modify_firstNameTxtBx);
             mailTxtBx = (EditText) findViewById(R.id.act_student_modify_mailTxtBx);
             saveButton = (Button) findViewById(R.id.act_student_modify_saveButton);
+            dataStore=DataGeneralStore.getStore(getApplicationContext());
 
             //reaserchig of the proper student
             int studentId = getIntent().getExtras().getInt("personId", -1);
             if (studentId < 0)
                 student = Student.newForCreation();
             else
-                student = DataGeneralStore.store.getStudentById(studentId).getModificator();
+                student = dataStore.getStudentById(studentId).getModificator();
         }
         {//seting default values in the editText & action listener on button
             if(student.getId()<0){
@@ -95,9 +98,10 @@ public class ModifyStudent extends Activity {
             if(!newMail.equals(""))
                 student.setMail(newMail);
 
-            student.save();
+            dataStore.save(student);
 
-            startActivity(new Intent(ModifyStudent.this.getApplicationContext(),OneStudent.class));
+            startActivity(new Intent(ModifyStudent.this.getApplicationContext(), OneStudent.class));
+            finish();
         }
     }
 }

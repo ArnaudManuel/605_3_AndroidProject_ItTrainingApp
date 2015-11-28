@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
+import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Session;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
@@ -31,13 +32,16 @@ public class ShowCours extends Activity {
     private TextView descriptionTxt;
     private Button modifyButton;
     private ListView sessionsListView;
+    private DataStore dataStore;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_cours_show);
+        dataStore=DataGeneralStore.getStore(getApplicationContext());
 
-
-        cours= DataGeneralStore.store.getCoursById(getIntent().getExtras().getInt("coursId"));
+        cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
 
         nameTxt=(TextView)findViewById(R.id.act_cours_show_nameTxt);
         descriptionTxt = (TextView)findViewById(R.id.act_cours_show_descriptionTxt);
@@ -50,7 +54,7 @@ public class ShowCours extends Activity {
         modifyButton.setOnClickListener(new ModifyCoursAction());
 
 
-        List<Session> temp =DataGeneralStore.store.getSessionFor(cours);
+        List<Session> temp =dataStore.getSessionFor(cours);
         Collections.sort(temp);
         Session[] sesions= new Session[temp.size()];
         temp.toArray(sesions);

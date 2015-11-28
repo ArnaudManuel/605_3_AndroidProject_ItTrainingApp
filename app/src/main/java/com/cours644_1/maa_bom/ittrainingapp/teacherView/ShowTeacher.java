@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
+import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Session;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Teacher;
@@ -35,13 +36,14 @@ public class ShowTeacher extends Activity {
     private TextView descriptionTxt;
     private Button modifyButton;
     private ListView sessionsListView;
+    private DataStore dataStore;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_teacher_show);
+        dataStore= DataGeneralStore.getStore(getApplicationContext());
 
-
-        teacher= DataGeneralStore.store.getTeacherById(getIntent().getExtras().getInt("personId"));
+        teacher= dataStore.getTeacherById(getIntent().getExtras().getInt("personId"));
         nameTxt=(TextView)findViewById(R.id.act_teacher_show_nameTxt);
         firstnameTxt=(TextView)findViewById(R.id.act_teacher_show_firstnameTxt);
         mailTxt=(TextView)findViewById(R.id.act_teacher_show_mailTxt);
@@ -58,7 +60,7 @@ public class ShowTeacher extends Activity {
 
 
 
-        List<Session> temp =DataGeneralStore.store.getSessionFor(teacher);
+        List<Session> temp =dataStore.getSessionFor(teacher);
         Collections.sort(temp);
         Session[] sessions= new Session[temp.size()];
         temp.toArray(sessions);

@@ -15,8 +15,5 @@ public class CoursModificator extends Cours {
     public void setDescription(String description){
         data.description=description;
     }
-    public boolean save(){
-        //TODO sauvegarde.
-        return false;
-    }
+
 }

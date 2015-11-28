@@ -23,9 +23,5 @@ public class TeacherModificator extends Teacher {
     }
 
 
-    public void save(){
-        data.isTeacher=true;
-        DataGeneralStore.store.save(this);
-    }
 
 }

@@ -27,6 +27,13 @@ public class Cours implements Comparable<Cours>{
         if(this.data.id== data.id)
             this.data=data;
     }
+
+    public SessionModificator getNewSession(){
+        SessionModificator respons =Session.getDefault(this);
+        respons.setCours(this);
+        return respons;
+    }
+
     @Override
     public String toString(){
         return data.name;
@@ -39,4 +46,5 @@ public class Cours implements Comparable<Cours>{
     public int compareTo(Cours another) {
         return this.data.name.compareTo(another.data.name);
     }
+
 }
