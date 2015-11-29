@@ -168,7 +168,7 @@ public class DataTestStore implements DataStore {
     }
 
     @Override
-    public void save(Student student) {
+    public int save(Student student) {
         if (student.getId() < 0) {
             student.data.id = PersonsTable.size();
             PersonsTable.add(student.data);
@@ -181,6 +181,11 @@ public class DataTestStore implements DataStore {
                     personData.isStudent = true;
                     break;
                 }
+return student.data.id;
+    }
+
+    @Override
+    public void delete(Student student) {
 
     }
 
@@ -244,7 +249,8 @@ public class DataTestStore implements DataStore {
     }
 
     @Override
-    public void save(Teacher teacher) {
+    public int save(Teacher teacher) {
+
         if (teacher.getId() < 0) {
             teacher.data.id = PersonsTable.size();
             PersonsTable.add(teacher.data);
@@ -258,6 +264,12 @@ public class DataTestStore implements DataStore {
                     personData.isTeacher = true;
                     break;
                 }
+        return teacher.data.id;
+    }
+
+    @Override
+    public void delete(Teacher teacher) {
+
     }
 
     @Override
@@ -320,8 +332,13 @@ public class DataTestStore implements DataStore {
     }
 
     @Override
-    public void save(Cours cours) {
+    public int save(Cours cours) {
         //TODO save cours
+return 0;
+    }
+
+    @Override
+    public void delete(Cours cours) {
 
     }
 
@@ -386,13 +403,24 @@ public class DataTestStore implements DataStore {
         return result;
     }
 
-
     @Override
-    public void save(Session session) {
-// TODO: 21.11.2015 implementation
+    public List<Session> getAllSession(Cours cours) {
+        return null;
     }
 
-     public Room getRoomById(int id) {
+
+    @Override
+    public int save(Session session) {
+// TODO: 21.11.2015 implementation
+        return 0;
+    }
+
+    @Override
+    public void delete(Session session) {
+
+    }
+
+    public Room getRoomById(int id) {
         Room room = null;
         for (RoomData roomData : RoomsTable) {
             if (roomData.id == id) {
@@ -422,6 +450,11 @@ public class DataTestStore implements DataStore {
     @Override
     public void setCours(Student student, List<Cours> selected) {
         //// TODO: 28.11.2015  du vide
+    }
+
+    @Override
+    public void setTeacher(Cours cours, List<Teacher> selected) {
+
     }
 
 

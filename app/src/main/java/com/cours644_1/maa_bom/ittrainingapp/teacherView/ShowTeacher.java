@@ -20,6 +20,7 @@ import com.cours644_1.maa_bom.ittrainingapp.DataObjects.TeacherModificator;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.ModifyStudent;
+import com.cours644_1.maa_bom.ittrainingapp.coursView.ShowCours;
 import com.cours644_1.maa_bom.ittrainingapp.sessionView.SessionsAdapter;
 
 import java.util.Collections;
@@ -43,7 +44,7 @@ public class ShowTeacher extends Activity {
         setContentView(R.layout.act_teacher_show);
         dataStore= DataGeneralStore.getStore(getApplicationContext());
 
-        teacher= dataStore.getTeacherById(getIntent().getExtras().getInt("personId"));
+
         nameTxt=(TextView)findViewById(R.id.act_teacher_show_nameTxt);
         firstnameTxt=(TextView)findViewById(R.id.act_teacher_show_firstnameTxt);
         mailTxt=(TextView)findViewById(R.id.act_teacher_show_mailTxt);
@@ -52,21 +53,28 @@ public class ShowTeacher extends Activity {
         sessionsListView = (ListView)findViewById(R.id.act_teacher_show_sessions_list);
 
 
-        nameTxt.setText(teacher.getName());
-        firstnameTxt.setText(teacher.getFirstname());
-        mailTxt.setText(teacher.getMail());
-        descriptionTxt.setText(teacher.getDescription());
-        modifyButton.setOnClickListener(new ModifyStudentAction());
 
-
-
-        List<Session> temp =dataStore.getSessionFor(teacher);
-        Collections.sort(temp);
-        Session[] sessions= new Session[temp.size()];
-        temp.toArray(sessions);
-        ArrayAdapter<Session> adapter = new SessionsAdapter(getApplicationContext(),sessions);
-        sessionsListView.setAdapter(adapter);
     }
+@Override
+protected void onResume(){
+    super.onResume();
+    teacher= dataStore.getTeacherById(getIntent().getExtras().getInt("personId"));
+    nameTxt.setText(teacher.getName());
+    firstnameTxt.setText(teacher.getFirstname());
+    mailTxt.setText(teacher.getMail());
+    descriptionTxt.setText(teacher.getDescription());
+    modifyButton.setOnClickListener(new ModifyStudentAction());
+
+
+
+    List<Session> temp =dataStore.getSessionFor(teacher);
+    Collections.sort(temp);
+    Session[] sessions= new Session[temp.size()];
+    temp.toArray(sessions);
+    ArrayAdapter<Session> adapter = new SessionsAdapter(getApplicationContext(),sessions);
+    sessionsListView.setAdapter(adapter);
+}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,8 +102,8 @@ public class ShowTeacher extends Activity {
             startActivity(intent);
         }
         if(id == R.id.action_delete){
-            //// TODO !
-            return true;
+            dataStore.delete(teacher);
+            ShowTeacher.this.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -111,4 +119,5 @@ public class ShowTeacher extends Activity {
             startActivity(intent);
         }
     }
+
 }

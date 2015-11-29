@@ -46,4 +46,13 @@ public class Student implements Comparable<Student>{
     public int compareTo(Student another) {
         return this.data.name.compareTo(another.data.name);
     }
+
+    @Override
+    public boolean equals(Object o){
+        try {
+            return this.data.id==((Student)o).data.id;
+        }catch (Exception e) {}
+        return false;
+
+    }
 }

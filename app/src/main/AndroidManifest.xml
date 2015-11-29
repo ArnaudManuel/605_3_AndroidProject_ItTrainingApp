@@ -55,6 +55,9 @@
             android:label="Modify teacher"
             >
         </activity>
+        <activity
+            android:name=".teacherView.MultipleTeacher"
+            android:label="Select teacher"></activity>
 
         <!-- Cours -->
         <activity
@@ -71,6 +74,11 @@
             android:name=".coursView.ModifyCours"
             android:label="Modify cours"
             >
+        </activity>
+        <activity
+            android:name=".coursView.CoursSelectorActivity"
+            android:label="choose cours">
+
         </activity>
         <!-- Session -->
         <activity android:name=".sessionView.SessionsList"

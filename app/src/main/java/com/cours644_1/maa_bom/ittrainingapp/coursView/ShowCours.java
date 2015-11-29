@@ -20,7 +20,9 @@ import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Session;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.ModifyStudent;
+import com.cours644_1.maa_bom.ittrainingapp.sessionView.ModifySession;
 import com.cours644_1.maa_bom.ittrainingapp.sessionView.SessionsAdapter;
+import com.cours644_1.maa_bom.ittrainingapp.sessionView.SessionsList;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +35,7 @@ public class ShowCours extends Activity {
     private TextView nameTxt;
     private TextView descriptionTxt;
     private Button modifyButton;
+    private Button manageSessionButton;
     private ListView sessionsListView;
     private DataStore dataStore;
 
@@ -44,17 +47,25 @@ public class ShowCours extends Activity {
         dataStore=DataGeneralStore.getStore(getApplicationContext());
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
+
 
         nameTxt=(TextView)findViewById(R.id.act_cours_show_nameTxt);
         descriptionTxt = (TextView)findViewById(R.id.act_cours_show_descriptionTxt);
         modifyButton = (Button) findViewById(R.id.act_cours_show_modifyButton);
         sessionsListView = (ListView) findViewById(R.id.act_cours_show_sessions_list);
+        manageSessionButton = (Button) findViewById(R.id.act_cours_show_manageSessonButton);
+        modifyButton.setOnClickListener(new ModifyCoursAction());
+        manageSessionButton.setOnClickListener(new ManagageSessionAction());
 
+    }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
         nameTxt.setText(cours.getName());
         descriptionTxt.setText(cours.getDescription());
-        modifyButton.setOnClickListener(new ModifyCoursAction());
+
 
 
         List<Session> temp =dataStore.getSessionFor(cours);
@@ -91,8 +102,8 @@ public class ShowCours extends Activity {
             startActivity(intent);
         }
         if(id == R.id.action_delete){
-            //// TODO !
-            return true;
+            dataStore.delete(cours);
+            ShowCours.this.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -104,9 +115,18 @@ public class ShowCours extends Activity {
         @Override
         public void onClick(View v) {
             Intent intent= new Intent(getApplicationContext(),ModifyCours.class);
-            intent.putExtra("coursId",cours.getId());
+            intent.putExtra("coursId", cours.getId());
             startActivity(intent);
         }
     }
+    private  class ManagageSessionAction implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),SessionsList.class);
+            intent.putExtra("coursId", cours.getId());
+            startActivity(intent);
+        }
+    }
+
 
 }

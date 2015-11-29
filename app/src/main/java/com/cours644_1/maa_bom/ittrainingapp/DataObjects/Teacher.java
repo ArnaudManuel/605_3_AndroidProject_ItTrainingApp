@@ -46,4 +46,13 @@ public class Teacher implements Comparable<Teacher>{
     public int compareTo(Teacher another) {
         return this.data.name.compareTo(another.data.name);
     }
+
+    @Override
+    public boolean equals(Object o){
+        try {
+            return this.data.id==((Teacher)o).data.id;
+        }catch (Exception e) {}
+        return false;
+
+    }
 }

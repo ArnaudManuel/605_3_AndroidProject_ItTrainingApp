@@ -41,19 +41,20 @@ public abstract class SelectionList extends Activity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+
+    }
+
+    protected abstract void specialise();
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         specialise();
 
         list.setAdapter(adapter);
     }
-    protected abstract void specialise();
 
-
-
-    @Override
-    public void onBackPressed()
-    {
-        startActivity(new Intent(SelectionList.this.getApplicationContext(), MainActivity.class));
-    }
 
 
 

@@ -30,17 +30,15 @@ public final class OneTeacher extends SelectionList {
                 R.layout.element_list_person,
                 items);
 
-        items = dataStore.getStudentsList().toArray();
-
         list.setOnItemClickListener(new OnTeacherClick());
         newItemButton.setText(R.string.add_teacher);//// TODO: 19.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewTeacherAction());
     }
-
+/*
     @Override
     protected void changeLanguage(String lang) {
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

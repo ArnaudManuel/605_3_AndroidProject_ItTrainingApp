@@ -151,7 +151,7 @@ public class ModifySession extends Activity {
 
 
     private void updateRooms(){
-        //// TODO: 24.11.2015 only availabel rooms
+
         List<Room> temp=dataStore.getAvailableRooms(start.getTime(), end.getTime());
         availableRooms= new Room[temp.size()];
         //// TODO: 24.11.2015   test vide?
@@ -180,11 +180,8 @@ public class ModifySession extends Activity {
         public void onClick(View v) {
             session.setStart(start.getTime());
             session.setEnd(end.getTime());
-            //todo ajouté salle choisie
             dataStore.save(session);
-            Intent intent = new Intent(getApplicationContext(), ShowCours.class);
-            intent.putExtra("coursId",cours.getId());
-            startActivity(intent);
+            ModifySession.this.finish();
         }
     }
 
@@ -208,14 +205,14 @@ public class ModifySession extends Activity {
             //change date end/start
             switch (mode){
                 case 0:
-                    day = start.get(Calendar.YEAR);
+                    day = start.get(Calendar.DAY_OF_MONTH);
                     month = start.get(Calendar.MONTH);
-                    year = start.get(Calendar.DAY_OF_MONTH);
+                    year = start.get(Calendar.YEAR);
                     break;
                 case 1:
-                    day = end.get(Calendar.YEAR);
+                    day = end.get(Calendar.DAY_OF_MONTH);
                     month = end.get(Calendar.MONTH);
-                    year = end.get(Calendar.DAY_OF_MONTH);
+                    year = end.get(Calendar.YEAR);
                     break;
             }
             DatePickerDialog dpd = new DatePickerDialog(ModifySession.this, this, year, month, day);
@@ -290,6 +287,14 @@ public class ModifySession extends Activity {
                     break;
             }
             refreshTimeField();
+        }
+    }
+    private class DeleteSessionAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            dataStore.delete(session);
+            ModifySession.this.finish();
         }
     }
 

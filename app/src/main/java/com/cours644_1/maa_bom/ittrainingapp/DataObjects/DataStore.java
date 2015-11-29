@@ -15,7 +15,8 @@ public interface DataStore {
     //used to list Students who participate to a session
     List<Student> getStudentsList(Session session);
     //used to save modification or new Student
-    void save (Student srudent);
+    int save (Student srudent);
+    void delete(Student student);
     Student getStudentById(int id);
 
 
@@ -27,7 +28,8 @@ public interface DataStore {
     //used to list teachers who participate to a session
     List<Teacher> getTeachersList(Session session);
     //used to save modification or new Student
-    void save (Teacher teacher);
+    int save (Teacher teacher);
+    void delete(Teacher teacher);
     Teacher getTeacherById(int id);
 
     //used in the genneral cours list show off all teachers in database
@@ -35,7 +37,8 @@ public interface DataStore {
     Cours getCoursById(int id);
     List<Cours> getCoursFor(Student student);
     List<Cours> getCoursFor(Teacher teacher);
-    void save(Cours cours);
+    int save(Cours cours);
+    void delete(Cours cours);
 
     Session getSessionById(int id);
     //used to list session from cours
@@ -44,7 +47,10 @@ public interface DataStore {
     List<Session> getSessionFor(Teacher teacher);
     //used to list sesson for a teacher
     List<Session> getSessionFor(Student student);
-    void save(Session session);
+    List<Session> getAllSession(Cours cours);
+
+    int save(Session session);
+    void delete(Session session);
 
 
     Room getRoomById(int id);
@@ -52,5 +58,6 @@ public interface DataStore {
     List<Room> getRooms();
 
     void setCours(Student student,List<Cours> selected);
+    void setTeacher(Cours cours, List<Teacher> selected);
 
 }

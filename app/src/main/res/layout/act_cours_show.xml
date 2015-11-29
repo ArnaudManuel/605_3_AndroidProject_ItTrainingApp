@@ -26,6 +26,12 @@
         android:text="Modify"
         android:id="@+id/act_cours_show_modifyButton"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="manage sessions"
+        android:id="@+id/act_cours_show_manageSessonButton"
+        android:layout_column="0" />
 
     <ListView
         android:layout_width="match_parent"

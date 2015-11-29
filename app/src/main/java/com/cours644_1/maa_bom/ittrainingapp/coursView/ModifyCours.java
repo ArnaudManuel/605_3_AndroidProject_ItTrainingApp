@@ -21,6 +21,7 @@ import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
 import com.cours644_1.maa_bom.ittrainingapp.sessionView.ModifySession;
+import com.cours644_1.maa_bom.ittrainingapp.teacherView.MultipleTeacher;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.ShowTeacher;
 
@@ -32,7 +33,8 @@ public class ModifyCours extends Activity {
     private EditText nameTxtBx;
     private EditText descriptionTxtBx;
     private Button saveButton;
-    private Button newSessionButton;
+
+    private Button atributeTeacher;
     private DataStore dataStore;
 
     @Override
@@ -45,9 +47,10 @@ public class ModifyCours extends Activity {
             nameTxtBx = (EditText) findViewById(R.id.act_cours_modify_nameTxtBx);
             descriptionTxtBx = (EditText) findViewById(R.id.act_cours_modify_descTxtBx);
             saveButton = (Button) findViewById(R.id.act_cours_modify_saveButton);
-            newSessionButton = (Button) findViewById(R.id.act_cours_modify_createNewSessonButton);
             dataStore= DataGeneralStore.getStore(getApplicationContext());
-
+            atributeTeacher = (Button) findViewById(R.id.act_cours_modify_atributeTeacherButton);
+            atributeTeacher.setOnClickListener(new AtributeTeacherAction());
+            saveButton.setOnClickListener(new SaveCoursAction());
 
             //reaserchig of the proper student
             int coursId = getIntent().getExtras().getInt("coursId", -1);
@@ -61,14 +64,14 @@ public class ModifyCours extends Activity {
                 //// TODO: 18.11.2015 put some localised context, and do not save default data
                 nameTxtBx.setText("name");
                 descriptionTxtBx.setText("description");
-
+                atributeTeacher.setVisibility(View.INVISIBLE);
             }
             else{
                 nameTxtBx.setText(cours.getName());
                 descriptionTxtBx.setText(cours.getDescription());
+                atributeTeacher.setVisibility(View.VISIBLE);
             }
-            saveButton.setOnClickListener(new SaveCoursAction());
-            newSessionButton.setOnClickListener(new NewSessionAction());
+
         }
     }
 
@@ -109,27 +112,27 @@ public class ModifyCours extends Activity {
             if(!newDescription.equals(""))
                 cours.setDescription(newDescription);
 
-            dataStore.save(cours);
+            int newId = dataStore.save(cours);
 
-            Intent intent;
             if(cours.getId()<0){
-                intent = new Intent(ModifyCours.this.getApplicationContext(),OneCours.class);
+                Intent intent = new Intent(ModifyCours.this.getApplicationContext(),ShowCours.class);
+                intent.putExtra("coursId", newId);
+                startActivity(intent);
             }
-            else{
-                intent = new Intent(ModifyCours.this.getApplicationContext(), ShowCours.class);
-                intent.putExtra("coursId", cours.getId());
-            }
-            startActivity(intent);
+
             finish();
         }
     }
-    private  class NewSessionAction implements View.OnClickListener{
+
+    private class AtributeTeacherAction implements View.OnClickListener{
+
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), ModifySession.class);
+            Intent intent = new Intent(ModifyCours.this.getApplicationContext(),MultipleTeacher.class);
             intent.putExtra("coursId", cours.getId());
-            intent.putExtra("sessionId",-1);
             startActivity(intent);
         }
     }
+
+
 }

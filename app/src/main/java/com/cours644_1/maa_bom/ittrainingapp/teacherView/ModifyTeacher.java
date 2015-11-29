@@ -110,17 +110,16 @@ public class ModifyTeacher extends Activity {
             if(!newDescription.equals(""))
                 teacher.setDescription(newDescription);
 
-            dataStore.save(teacher);
+            int newId =dataStore.save(teacher);
             Intent intent;
             if(teacher.getId()<0){
-                intent = new Intent(ModifyTeacher.this.getApplicationContext(),OneTeacher.class);
+                intent = new Intent(ModifyTeacher.this.getApplicationContext(),ShowTeacher.class);
+                intent.putExtra("personId",newId);
+                startActivity(intent);
             }
-            else{
-                intent = new Intent(ModifyTeacher.this.getApplicationContext(), ShowTeacher.class);
-                intent.putExtra("personId", teacher.getId());
-            }
-            startActivity(intent);
+
             finish();
         }
     }
+
 }

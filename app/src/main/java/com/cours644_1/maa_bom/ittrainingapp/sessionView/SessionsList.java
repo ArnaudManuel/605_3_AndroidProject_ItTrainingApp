@@ -30,7 +30,7 @@ public class SessionsList extends SelectionList {
     protected void specialise() {
         cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
 
-        List temp=dataStore.getSessionFor(cours);
+        List temp=dataStore.getAllSession(cours);
         sessions = new Session[temp.size()];
         temp.toArray(sessions);
         adapter = new SessionsAdapter(
@@ -38,15 +38,15 @@ public class SessionsList extends SelectionList {
                 sessions);
 
         list.setOnItemClickListener(new OnSessionClick());
-        newItemButton.setText("add Cours");// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText("add new session");// // TODO: 21.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewSessionAction());
     }
-
+/*
     @Override
     protected void changeLanguage(String lang) {
 
     }
-
+*/
     private class OnSessionClick implements AdapterView.OnItemClickListener{
 
         @Override
@@ -72,8 +72,6 @@ public class SessionsList extends SelectionList {
     @Override
     public void onBackPressed()
     {
-        Intent intent= new Intent(getApplicationContext(),ShowCours.class);
-        intent.putExtra("coursId",cours.getId());
-        startActivity(intent);
+        finish();
     }
 }

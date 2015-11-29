@@ -16,6 +16,7 @@ import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.StudentModificator;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
+import com.cours644_1.maa_bom.ittrainingapp.coursView.CoursSelectorActivity;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.ShowTeacher;
 
@@ -25,6 +26,7 @@ public class ModifyStudent extends Activity {
     private EditText firstnameTxtBx;
     private EditText mailTxtBx;
     private Button saveButton;
+    private Button manageCours;
     private DataStore dataStore;
 
     @Override
@@ -32,34 +34,39 @@ public class ModifyStudent extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_student_modify);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        {//seting properties of the object for a clearer acces
-            nameTxtBx = (EditText) findViewById(R.id.act_student_modify_nameTxtBx);
-            firstnameTxtBx = (EditText) findViewById(R.id.act_student_modify_firstNameTxtBx);
-            mailTxtBx = (EditText) findViewById(R.id.act_student_modify_mailTxtBx);
-            saveButton = (Button) findViewById(R.id.act_student_modify_saveButton);
-            dataStore=DataGeneralStore.getStore(getApplicationContext());
-
+        //seting properties of the object for a clearer acces
+        nameTxtBx = (EditText) findViewById(R.id.act_student_modify_nameTxtBx);
+        firstnameTxtBx = (EditText) findViewById(R.id.act_student_modify_firstNameTxtBx);
+        mailTxtBx = (EditText) findViewById(R.id.act_student_modify_mailTxtBx);
+        saveButton = (Button) findViewById(R.id.act_student_modify_saveButton);
+        dataStore=DataGeneralStore.getStore(getApplicationContext());
+        manageCours = (Button) findViewById(R.id.act_student_modify_manageSessionButton);
+        manageCours.setOnClickListener(new ManageCoursAction());
             //reaserchig of the proper student
-            int studentId = getIntent().getExtras().getInt("personId", -1);
-            if (studentId < 0)
-                student = Student.newForCreation();
-            else
-                student = dataStore.getStudentById(studentId).getModificator();
+        int studentId = getIntent().getExtras().getInt("personId", -1);
+        saveButton.setOnClickListener(new SaveStudentAction());
+        if (studentId < 0)
+            student = Student.newForCreation();
+        else
+            student = dataStore.getStudentById(studentId).getModificator();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(student.getId()<0){
+            //// TODO: 18.11.2015 put some localised context, and do not save default data
+            nameTxtBx.setText("name");
+            firstnameTxtBx.setText("firstName");
+            mailTxtBx.setText("Adresse E-mail");
+            manageCours.setVisibility(View.INVISIBLE);
         }
-        {//seting default values in the editText & action listener on button
-            if(student.getId()<0){
-                //// TODO: 18.11.2015 put some localised context, and do not save default data
-                nameTxtBx.setText("name");
-                firstnameTxtBx.setText("firstName");
-                mailTxtBx.setText("Adresse E-mail");
-            }
-            else{
-                nameTxtBx.setText(student.getName());
-                firstnameTxtBx.setText(student.getFirstname());
-                mailTxtBx.setText(student.getMail());
-            }
-            saveButton.setOnClickListener(new SaveStudentAction());
+        else{
+            nameTxtBx.setText(student.getName());
+            firstnameTxtBx.setText(student.getFirstname());
+            mailTxtBx.setText(student.getMail());
+            manageCours.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override
@@ -102,18 +109,26 @@ public class ModifyStudent extends Activity {
             if(!newMail.equals(""))
                 student.setMail(newMail);
 
-            dataStore.save(student);
+            int newId =dataStore.save(student);
 
-            Intent intent;
+
             if(student.getId()<0){
-                intent = new Intent(ModifyStudent.this.getApplicationContext(),OneStudent.class);
+                Intent intent = new Intent(ModifyStudent.this.getApplicationContext(),ShowStudent.class);
+                intent.putExtra("personId",newId);
+                startActivity(intent);
             }
-            else{
-                intent = new Intent(ModifyStudent.this.getApplicationContext(), ShowStudent.class);
-                intent.putExtra("personId", student.getId());
-            }
-            startActivity(intent);
             finish();
         }
     }
+    private class ManageCoursAction implements View.OnClickListener {
+
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), CoursSelectorActivity.class);
+            intent.putExtra("personId", student.getId());
+            startActivity(intent);
+        }
+    }
+
 }

@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,7 +88,8 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
     }
 
     @Override
-    public void save(Student student) {
+    public int save(Student student) {
+        int respons;
         ContentValues values = new ContentValues();
         values.put(iptainingContract.PersonsTable.Name, student.getName());
         values.put(iptainingContract.PersonsTable.Firstname, student.getFirstname());
@@ -98,15 +97,33 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         values.put(iptainingContract.PersonsTable.IsStudent, 1);
         SQLiteDatabase db = this.getWritableDatabase();
         if (student.getId() < 0) {
-            db.insert(iptainingContract.PersonsTable.Table_name,"" ,values);
+            respons= (int) db.insert(iptainingContract.PersonsTable.Table_name,"" ,values);
         } else {
+            respons=student.getId();
             String[] cond = {""+student.getId()};
+            String clause =iptainingContract.PersonsTable._ID+"=?";
             db.update(
                     iptainingContract.PersonsTable.Table_name,
                     values,
-                    iptainingContract.PersonsTable._ID,
+                    clause,
                     cond);
         }
+        db.close();
+        return respons;
+    }
+
+    @Override
+    public void delete(Student student) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(iptainingContract.PersonsTable.IsStudent, 0);
+        String[] cond = {""+student.getId()};
+        String clause =iptainingContract.PersonsTable._ID+"=?";
+        db.update(
+                iptainingContract.PersonsTable.Table_name,
+                values,
+                clause,
+                cond);
         db.close();
     }
 
@@ -176,16 +193,66 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
     @Override
     public List<Teacher> getTeachersList(Cours cours) {
-        return null;
+        List<Integer> teacherIds = new ArrayList<Integer>();
+
+        String clause = iptainingContract.TeachersCoursTable.CoursId+"=?";
+        String[] conds = {cours.getId()+""};
+        String[] selection={iptainingContract.TeachersCoursTable.TeacherId};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor curs = db.query(
+                iptainingContract.TeachersCoursTable.Table_name,
+                selection,
+                clause,
+                conds,
+                null,
+                null,
+                null);
+        if (curs!=null){
+            if(curs.moveToFirst())
+                teacherIds.add(new Integer(curs.getInt(curs.getColumnIndex(iptainingContract.TeachersCoursTable.TeacherId))));
+            curs.close();
+        }
+        db.close();
+        List<Teacher> respons = new ArrayList<Teacher>();
+        for (Integer intObj:teacherIds){
+            respons.add(getTeacherById(intObj.intValue()));
+        }
+        return respons;
+
     }
 
     @Override
     public List<Teacher> getTeachersList(Session session) {
-        return null;
+        List<Integer> teacherIds = new ArrayList<Integer>();
+
+        String clause = iptainingContract.TeachersCoursTable.CoursId+"=?";
+        String[] conds = {session.getCoursId()+""};
+        String[] selection={iptainingContract.TeachersCoursTable.TeacherId};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor curs = db.query(
+                iptainingContract.TeachersCoursTable.Table_name,
+                selection,
+                clause,
+                conds,
+                null,
+                null,
+                null);
+        if (curs!=null){
+            if(curs.moveToFirst())
+                teacherIds.add(new Integer(curs.getInt(curs.getColumnIndex(iptainingContract.TeachersCoursTable.TeacherId))));
+            curs.close();
+        }
+        db.close();
+        List<Teacher> respons = new ArrayList<Teacher>();
+        for (Integer intObj:teacherIds){
+            respons.add(getTeacherById(intObj.intValue()));
+        }
+        return respons;
     }
 
     @Override
-    public void save(Teacher teacher) {
+    public int save(Teacher teacher) {
+        int respons;
         ContentValues values = new ContentValues();
         values.put(iptainingContract.PersonsTable.Name, teacher.getName());
         values.put(iptainingContract.PersonsTable.Firstname, teacher.getFirstname());
@@ -194,15 +261,33 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         values.put(iptainingContract.PersonsTable.IsTeacher, 1);
         SQLiteDatabase db = this.getWritableDatabase();
         if (teacher.getId() < 0) {
-            db.insert(iptainingContract.PersonsTable.Table_name,"" ,values);
+            respons = (int)db.insert(iptainingContract.PersonsTable.Table_name,"" ,values);
         } else {
             String[] cond = {""+teacher.getId()};
+            String clause = iptainingContract.PersonsTable._ID+"=?";
             db.update(
                     iptainingContract.PersonsTable.Table_name,
                     values,
-                    iptainingContract.PersonsTable._ID,
+                    clause,
                     cond);
+            respons= teacher.getId();
         }
+        db.close();
+        return respons;
+    }
+
+    @Override
+    public void delete(Teacher teacher) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(iptainingContract.PersonsTable.IsTeacher, 0);
+        String[] cond = {""+teacher.getId()};
+        String clause = iptainingContract.PersonsTable._ID+"=?";
+        db.update(
+                iptainingContract.PersonsTable.Table_name,
+                values,
+                clause,
+                cond);
         db.close();
     }
 
@@ -262,7 +347,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
             curs.close();
         }
         db.close();
-        Toast.makeText(context, "cours list sise:"+respons.size(),Toast.LENGTH_LONG).show();
+
 
         return respons;
     }
@@ -303,22 +388,22 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
     public List<Cours> getCoursFor(Student student) {
         List<Integer> coursIds = new ArrayList<Integer>();
 
-        String clause = iptainingContract.TeachersCoursTable.TeacherId+"=?";
+        String clause = iptainingContract.StudentsCoursTable.StudentId+"=?";
         String[] conds = {student.getId()+""};
-        String[] selection={iptainingContract.TeachersCoursTable.CoursId};
+        String[] selection={iptainingContract.StudentsCoursTable.CoursId};
         SQLiteDatabase db = getReadableDatabase();
         Cursor curs = db.query(
-                iptainingContract.TeachersCoursTable.Table_name,
+                iptainingContract.StudentsCoursTable.Table_name,
                 selection,
                 clause,
                 conds,
                 null,
                 null,
-                iptainingContract.TeachersCoursTable.CoursId+Ascendant
+                iptainingContract.StudentsCoursTable.CoursId+Ascendant
         );
         if (curs!=null){
             if(curs.moveToFirst())
-                coursIds.add(new Integer(curs.getInt(curs.getColumnIndex(iptainingContract.TeachersCoursTable.CoursId))));
+                coursIds.add(new Integer(curs.getInt(curs.getColumnIndex(iptainingContract.StudentsCoursTable.CoursId))));
             curs.close();
         }
         db.close();
@@ -360,22 +445,51 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
     }
 
     @Override
-    public void save(Cours cours) {
+    public int save(Cours cours) {
+        int respons;
         ContentValues values = new ContentValues();
         values.put(iptainingContract.CoursTable.Name, cours.getName());
         values.put(iptainingContract.CoursTable.Description, cours.getDescription());
         SQLiteDatabase db = this.getWritableDatabase();
         if (cours.getId() < 0) {
-            db.insert(iptainingContract.CoursTable.Table_name,"" ,values);
+            respons = (int)db.insert(iptainingContract.CoursTable.Table_name,"" ,values);
         } else {
             String[] cond = {""+cours.getId()};
+            String clause =iptainingContract.CoursTable._ID+"=?";
             db.update(
                     iptainingContract.CoursTable.Table_name,
                     values,
-                    iptainingContract.CoursTable._ID,
+                    clause,
                     cond);
+            respons= cours.getId();
         }
         db.close();
+        return respons;
+    }
+
+    @Override
+    public void delete(Cours cours) {
+        String clause_teacher = iptainingContract.TeachersCoursTable.CoursId+"=?";
+        String clause_student = iptainingContract.StudentsCoursTable.CoursId+"=?";
+        String clause_session = iptainingContract.SessionTable.CoursId+"=?";
+        String clause_cours = iptainingContract.CoursTable._ID+"=?";
+
+        String[] conds = {cours.getId()+""};
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(iptainingContract.TeachersCoursTable.Table_name,
+                clause_teacher,
+                conds);
+        db.delete(iptainingContract.StudentsCoursTable.Table_name,
+                clause_student,
+                conds);
+        db.delete(iptainingContract.SessionTable.Table_name,
+                clause_session,
+                conds);
+        db.delete(iptainingContract.CoursTable.Table_name,
+                clause_cours,
+                conds);
+        db.close();
+
     }
 
 
@@ -425,9 +539,12 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
                 conds,
                 null,
                 null,
-                iptainingContract.SessionTable.RoomId+Ascendant);
+                iptainingContract.SessionTable.Start+Ascendant);
         if (curs!=null){
+            Date now = new Date();
             for (curs.moveToFirst();curs.isAfterLast()==false;curs.moveToNext()){
+                long endSesseion =curs.getLong(curs.getColumnIndex(iptainingContract.SessionTable.End));
+                if(endSesseion>=now.getTime())
                 temp.add(new SessionModificator(
                         new SessionData(
                                 curs.getInt(curs.getColumnIndex(iptainingContract.SessionTable._ID)),
@@ -469,7 +586,49 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
     }
 
     @Override
-    public void save(Session session) {
+    public List<Session> getAllSession(Cours cours) {
+        List<SessionModificator> temp = new ArrayList<SessionModificator>();
+
+        String clause = iptainingContract.SessionTable.CoursId+"=?";
+        String[] conds = {cours.getId()+""};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor curs = db.query(
+                iptainingContract.SessionTable.Table_name,
+                iptainingContract.SessionTable.ALL,
+                clause,
+                conds,
+                null,
+                null,
+                iptainingContract.SessionTable.Start+Ascendant);
+        if (curs!=null){
+            for (curs.moveToFirst();curs.isAfterLast()==false;curs.moveToNext()){
+                temp.add(new SessionModificator(
+                        new SessionData(
+                                curs.getInt(curs.getColumnIndex(iptainingContract.SessionTable._ID)),
+                                cours.getId(),
+                                curs.getInt(curs.getColumnIndex(iptainingContract.SessionTable.RoomId)),
+                                new Date(curs.getLong(curs.getColumnIndex(iptainingContract.SessionTable.Start))),
+                                new Date(curs.getLong(curs.getColumnIndex(iptainingContract.SessionTable.End)))
+                        )
+                        , cours,
+                        null));
+            }
+            curs.close();
+        }
+        db.close();
+
+        for (SessionModificator session:temp){
+            session.setRoom(getRoomById(session.data.roomId));
+        }
+        List<Session> respons = new ArrayList<Session>();
+        for (SessionModificator session:temp)
+            respons.add(session);
+        return respons;
+    }
+
+    @Override
+    public int save(Session session) {
+        int respons;
         ContentValues values = new ContentValues();
 
         values.put(iptainingContract.SessionTable.RoomId, session.data.roomId);
@@ -479,15 +638,31 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
         SQLiteDatabase db = this.getWritableDatabase();
         if (session.getId() < 0) {
-            db.insert(iptainingContract.SessionTable.Table_name,"" ,values);
+            respons=(int)db.insert(iptainingContract.SessionTable.Table_name,"" ,values);
         } else {
             String[] cond = {""+session.getId()};
+            String clause= iptainingContract.SessionTable._ID+"=?";
             db.update(
-                    iptainingContract.PersonsTable.Table_name,
+                    iptainingContract.SessionTable.Table_name,
                     values,
-                    iptainingContract.PersonsTable._ID,
+                    clause,
                     cond);
+            respons=session.getId();
         }
+        db.close();
+        return respons;
+    }
+
+    @Override
+    public void delete(Session session) {
+        String clause = iptainingContract.SessionTable._ID+"=?";
+
+        String[] conds = {session.getId()+""};
+        SQLiteDatabase db = getWritableDatabase();
+
+        db.delete(iptainingContract.SessionTable.Table_name,
+                clause,
+                conds);
         db.close();
     }
 
@@ -641,6 +816,22 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
             values.put(iptainingContract.StudentsCoursTable.CoursId,cours.getId());
             values.put(iptainingContract.StudentsCoursTable.StudentId, student.getId());
             db.insert(iptainingContract.StudentsCoursTable.Table_name,"", values);
+        }
+    }
+
+    @Override
+    public void setTeacher(Cours cours, List<Teacher> selected) {
+        String clause = iptainingContract.TeachersCoursTable.CoursId+"=?";
+        String[] conds = {cours.getId()+""};
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(iptainingContract.TeachersCoursTable.Table_name,
+                clause,
+                conds);
+        for (Teacher teacher : selected){
+            ContentValues values = new ContentValues();
+            values.put(iptainingContract.TeachersCoursTable.CoursId, cours.getId());
+            values.put(iptainingContract.TeachersCoursTable.TeacherId,teacher.getId());
+            db.insert(iptainingContract.TeachersCoursTable.Table_name,"",values);
         }
     }
 
