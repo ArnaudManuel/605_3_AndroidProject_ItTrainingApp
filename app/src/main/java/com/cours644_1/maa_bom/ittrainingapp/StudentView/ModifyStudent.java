@@ -2,7 +2,9 @@ package com.cours644_1.maa_bom.ittrainingapp.StudentView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.StudentModificator;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
+import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
+import com.cours644_1.maa_bom.ittrainingapp.teacherView.ShowTeacher;
 
 public class ModifyStudent extends Activity {
     private StudentModificator student;
@@ -27,7 +31,7 @@ public class ModifyStudent extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_student_modify);
-
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         {//seting properties of the object for a clearer acces
             nameTxtBx = (EditText) findViewById(R.id.act_student_modify_nameTxtBx);
             firstnameTxtBx = (EditText) findViewById(R.id.act_student_modify_firstNameTxtBx);
@@ -100,7 +104,15 @@ public class ModifyStudent extends Activity {
 
             dataStore.save(student);
 
-            startActivity(new Intent(ModifyStudent.this.getApplicationContext(), OneStudent.class));
+            Intent intent;
+            if(student.getId()<0){
+                intent = new Intent(ModifyStudent.this.getApplicationContext(),OneStudent.class);
+            }
+            else{
+                intent = new Intent(ModifyStudent.this.getApplicationContext(), ShowStudent.class);
+                intent.putExtra("personId", student.getId());
+            }
+            startActivity(intent);
             finish();
         }
     }

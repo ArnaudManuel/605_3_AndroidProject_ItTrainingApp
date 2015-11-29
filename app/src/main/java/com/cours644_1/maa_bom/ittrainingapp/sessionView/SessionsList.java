@@ -41,6 +41,12 @@ public class SessionsList extends SelectionList {
         newItemButton.setText("add Cours");// // TODO: 21.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewSessionAction());
     }
+
+    @Override
+    protected void changeLanguage(String lang) {
+
+    }
+
     private class OnSessionClick implements AdapterView.OnItemClickListener{
 
         @Override

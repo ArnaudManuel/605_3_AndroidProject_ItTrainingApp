@@ -6,11 +6,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Teacher;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
+
+import java.util.Locale;
 
 /**
  * Created by arnaud on 19.11.2015.
@@ -28,13 +32,13 @@ public final class OneTeacher extends SelectionList {
 
         items = dataStore.getStudentsList().toArray();
 
-
-
-
-
         list.setOnItemClickListener(new OnTeacherClick());
-        newItemButton.setText("add teacher");//// TODO: 19.11.2015 localiser ressource
+        newItemButton.setText(R.string.add_teacher);//// TODO: 19.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewTeacherAction());
+    }
+
+    @Override
+    protected void changeLanguage(String lang) {
     }
 
     @Override

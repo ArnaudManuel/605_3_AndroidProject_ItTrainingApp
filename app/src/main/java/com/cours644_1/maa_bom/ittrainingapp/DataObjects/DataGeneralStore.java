@@ -8,7 +8,7 @@ import java.util.List;
  * Created by arnaud on 14.11.2015.
  */
 public class DataGeneralStore {
-    private final static boolean onDebug=false;
+    private final static boolean onDebug=true;
     private static final DataGeneralStore me = new DataGeneralStore();
 
 

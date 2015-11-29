@@ -5,13 +5,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.cours644_1.maa_bom.ittrainingapp.Settings.Preferences;
+import java.util.Locale;
 
 /**
  * Created by Maximilien on 19.11.2015.
@@ -24,8 +26,11 @@ public class SettingsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_settings);
 
-        getTheme().applyStyle(new Preferences(this).getFontStyle().getResId(), true);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        getFragmentManager().beginTransaction()
+                .replace(android.R.id.content,new SettingsFragment())
+                .commit();
 
     }
 
@@ -39,9 +44,10 @@ public class SettingsActivity extends Activity{
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a parent activity in AndroidManifest.xml 7
         return super.onOptionsItemSelected(item);
     }
+
 
     public void onClick(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

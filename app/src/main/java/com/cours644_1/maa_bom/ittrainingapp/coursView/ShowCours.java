@@ -2,7 +2,9 @@ package com.cours644_1.maa_bom.ittrainingapp.coursView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,7 @@ public class ShowCours extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_cours_show);
         dataStore=DataGeneralStore.getStore(getApplicationContext());
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
 

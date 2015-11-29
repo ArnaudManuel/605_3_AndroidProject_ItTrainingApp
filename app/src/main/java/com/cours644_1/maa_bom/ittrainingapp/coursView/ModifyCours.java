@@ -2,7 +2,9 @@ package com.cours644_1.maa_bom.ittrainingapp.coursView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,8 @@ import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
 import com.cours644_1.maa_bom.ittrainingapp.StudentView.OneStudent;
 import com.cours644_1.maa_bom.ittrainingapp.sessionView.ModifySession;
+import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
+import com.cours644_1.maa_bom.ittrainingapp.teacherView.ShowTeacher;
 
 /**
  * Created by arnaud on 20.11.2015.
@@ -35,6 +39,7 @@ public class ModifyCours extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_cours_modify);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         {//seting properties of the object for a clearer acces
             nameTxtBx = (EditText) findViewById(R.id.act_cours_modify_nameTxtBx);
@@ -106,7 +111,16 @@ public class ModifyCours extends Activity {
 
             dataStore.save(cours);
 
-            startActivity(new Intent(ModifyCours.this.getApplicationContext(), OneCours.class));
+            Intent intent;
+            if(cours.getId()<0){
+                intent = new Intent(ModifyCours.this.getApplicationContext(),OneCours.class);
+            }
+            else{
+                intent = new Intent(ModifyCours.this.getApplicationContext(), ShowCours.class);
+                intent.putExtra("coursId", cours.getId());
+            }
+            startActivity(intent);
+            finish();
         }
     }
     private  class NewSessionAction implements View.OnClickListener{
