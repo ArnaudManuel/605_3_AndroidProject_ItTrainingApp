@@ -1,5 +1,7 @@
 package com.cours644_1.maa_bom.ittrainingapp.DataObjects;
 
+import java.util.Objects;
+
 /**
  * Created by arnaud on 14.11.2015.
  */
@@ -47,4 +49,12 @@ public class Cours implements Comparable<Cours>{
         return this.data.name.compareTo(another.data.name);
     }
 
+    @Override
+    public boolean equals(Object o){
+        try {
+            return this.data.id==((Cours)o).data.id;
+        }catch (Exception e) {}
+        return false;
+
+    }
 }

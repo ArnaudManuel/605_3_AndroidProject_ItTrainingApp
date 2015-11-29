@@ -35,6 +35,10 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         db.execSQL(iptainingContract.SessionTable.getCreateQuery());
         db.execSQL(iptainingContract.TeachersCoursTable.getCreateQuery());
         db.execSQL(iptainingContract.StudentsCoursTable.getCreateQuery());
+
+        ContentValues[] rooms = iptainingContract.RoomTable.getSomeRooms(5);
+        for (ContentValues room : rooms)
+            db.insert(iptainingContract.RoomTable.Table_name,"" ,room);
     }
 
     @Override
@@ -45,7 +49,6 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
     @Override
     public List<Student> getStudentsList() {
-
     List<Student> respons = new ArrayList<Student>();
     String clause =iptainingContract.PersonsTable.IsStudent+"=?";
     String[] conds = {"1"};
@@ -439,13 +442,9 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
             curs.close();
         }
         db.close();
-        Room room=null;
+
         for (SessionModificator session:temp){
-            if (room==null)
-                room=getRoomById(session.data.roomId);
-            if (room.getId()!=session.data.roomId)
-                room=getRoomById(session.data.roomId);
-            session.setRoom(room);
+            session.setRoom(getRoomById(session.data.roomId));
         }
         List<Session> respons = new ArrayList<Session>();
         for (SessionModificator session:temp)
@@ -480,7 +479,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
         SQLiteDatabase db = this.getWritableDatabase();
         if (session.getId() < 0) {
-            db.insert(iptainingContract.PersonsTable.Table_name,"" ,values);
+            db.insert(iptainingContract.SessionTable.Table_name,"" ,values);
         } else {
             String[] cond = {""+session.getId()};
             db.update(
@@ -523,7 +522,126 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
     @Override
     public List<Room> getAvailableRooms(Date start, Date end) {
-        return null;
+        String tempTableName = "tempTable";
+
+        //créé une table temporaire de tout ce qui finit après le début du cours
+        String query = iptainingContract.SqlCommand.CreateTable+
+                tempTableName
+                +" AS SELECT "
+                + iptainingContract.SessionTable.RoomId+", "
+                + iptainingContract.SessionTable.Start+", "
+                + iptainingContract.SessionTable.End
+                +" FROM "+ iptainingContract.SessionTable.Table_name
+                +" WHERE "
+                + iptainingContract.SessionTable.End+ " > "
+                + start.getTime();
+
+        //supprime de la table tempèraire tout ce qui commence après la fin
+        String clause = iptainingContract.SessionTable.Start+">?";
+        String[] conds = {end.getTime()+""};
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(query);
+        db.delete(tempTableName,clause, conds);
+
+        //select all used room ids
+        String[] selected = {iptainingContract.SessionTable.RoomId};
+        List<Long> usedRoomIds = new ArrayList<>();
+        Cursor curs = db.query(
+                tempTableName,
+                selected,
+                null,
+                null,
+                null,
+                null,
+                null);
+        if (curs!=null){
+            for (curs.moveToFirst();curs.isAfterLast()==false;curs.moveToNext()){
+                usedRoomIds.add(new Long(
+                        curs.getLong(curs.getColumnIndex(iptainingContract.SessionTable.RoomId))
+                ));
+            }
+            curs.close();
+
+        }
+        db.execSQL(iptainingContract.SqlCommand.DestroyTable+tempTableName);
+        if(usedRoomIds.size()==0){
+            curs=db.query(
+                    iptainingContract.RoomTable.Table_name,
+                    iptainingContract.RoomTable.ALL,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+        }else {
+            conds = new String[usedRoomIds.size()];
+            int cpt = 0;
+            for (Long id : usedRoomIds) {
+                conds[cpt] = id.longValue() + "";
+                ++cpt;
+            }
+            clause = iptainingContract.RoomTable._ID + "<>?";
+
+            curs = db.query(
+                    iptainingContract.RoomTable.Table_name,
+                    iptainingContract.RoomTable.ALL,
+                    clause,
+                    conds,
+                    null,
+                    null,
+                    null
+            );
+        }
+        List<Room>respons = new ArrayList<Room>();
+        if(curs!=null ) {
+            for (curs.moveToFirst(); curs.isAfterLast()==false; curs.moveToNext())
+                respons.add(new Room(new RoomData(
+                        curs.getInt(curs.getColumnIndex(iptainingContract.RoomTable._ID)),
+                        curs.getString(curs.getColumnIndex(iptainingContract.RoomTable.Name))
+                )));
+            curs.close();
+        }
+
+        db.close();
+        return respons;
+    }
+
+    @Override
+    public List<Room> getRooms() {
+        List<Room> respons = new ArrayList<Room>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor curs = db.rawQuery(iptainingContract.SqlCommand.SelectAll+ iptainingContract.RoomTable.Table_name, null);
+        if(curs!=null ) {
+            for (curs.moveToFirst(); curs.isAfterLast()==false; curs.moveToNext())
+                respons.add(new Room(new RoomData(
+                        curs.getInt(curs.getColumnIndex(iptainingContract.RoomTable._ID)),
+                        curs.getString(curs.getColumnIndex(iptainingContract.RoomTable.Name))
+                )));
+            curs.close();
+        }
+
+        db.close();
+        return respons;
+    }
+
+    @Override
+    public void setCours(Student student, List<Cours> selected) {
+
+        String clause = iptainingContract.StudentsCoursTable.StudentId+"=?";
+        String[] conds = {student.getId()+""};
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(iptainingContract.StudentsCoursTable.Table_name,
+                clause,
+                conds);
+
+        for (Cours cours : selected) {
+            ContentValues values = new ContentValues();
+            values.put(iptainingContract.StudentsCoursTable.CoursId,cours.getId());
+            values.put(iptainingContract.StudentsCoursTable.StudentId, student.getId());
+            db.insert(iptainingContract.StudentsCoursTable.Table_name,"", values);
+        }
     }
 
     private static abstract class iptainingContract{
@@ -540,7 +658,9 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
             final static String ForeygnKey(String recever){return "FOREIGN KEY("+recever+") ";}
         }
         private static abstract class SqlCommand{
+            final static String DestroyTable = "DROP TABLE ";
             final static String CreateTable="CREATE TABLE ";
+            final static String SelectAll = "SELECT  * FROM ";
         }
         private static abstract class PersonsTable implements BaseColumns {
             final static String Table_name="Person";
@@ -611,6 +731,20 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
             final static String[] ALL={
                     _ID,
                     Name};
+
+
+            static private ContentValues[] getSomeRooms(int nb) {
+                ContentValues[] rooms;
+                int nbrooms=nb%9000;
+                rooms= new ContentValues[nbrooms];
+                for (int cpt= 0; cpt<rooms.length;++cpt){
+                    ContentValues values = new ContentValues();
+                    int temp=101+cpt;
+                    values.put(Name,temp+"");
+                    rooms[cpt]=values;
+                }
+                return rooms;
+            }
         }
         private static abstract class SessionTable implements  BaseColumns{
             final static String Table_name="Session";
@@ -627,9 +761,10 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
                         + _ID + SqlType.Integer + SqlContraint.PrimaryKey + ", "
                         + RoomId + SqlType.Text + ", "
                         + CoursId + SqlType.Text + ", "
-                        + Start + SqlType.Date + ","
-                        + End + SqlType.Date + ","
-                        + SqlContraint.ForeygnKey(CoursId) + CoursTable.Reference
+                        + Start + SqlType.Date + ", "
+                        + End + SqlType.Date + ", "
+                        + SqlContraint.ForeygnKey(CoursId) + CoursTable.Reference +", "
+                        +SqlContraint.ForeygnKey(RoomId)+ RoomTable.Reference
                         + ")";
             }
 

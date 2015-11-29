@@ -411,5 +411,18 @@ public class DataTestStore implements DataStore {
         return respons;
     }
 
+    @Override
+    public List<Room> getRooms() {
+        List<Room> respons= new ArrayList<Room>();
+        for (RoomData roomData : RoomsTable)
+            respons.add(new Room(roomData));
+        return respons;
+    }
+
+    @Override
+    public void setCours(Student student, List<Cours> selected) {
+        //// TODO: 28.11.2015  du vide
+    }
+
 
 }

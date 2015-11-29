@@ -49,5 +49,8 @@ public interface DataStore {
 
     Room getRoomById(int id);
     List<Room> getAvailableRooms(Date start, Date end);
+    List<Room> getRooms();
+
+    void setCours(Student student,List<Cours> selected);
 
 }
