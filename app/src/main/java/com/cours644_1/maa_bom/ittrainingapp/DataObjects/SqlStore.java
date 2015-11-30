@@ -708,7 +708,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         query:
         create a new table (temporary) as all sessions who end after the wanted start time
          */
-        //créé une table temporaire de tout ce qui finit après le début du cours
+
         String query = iptainingContract.SqlCommand.CreateTable+
                 tempTableName
                 +" AS SELECT *"
@@ -731,7 +731,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         Cursor curs;
 
 
-boolean isclearlyExecuted=false;
+        boolean isclearlyExecuted=false;
         try {
             db.execSQL(query);
             /*

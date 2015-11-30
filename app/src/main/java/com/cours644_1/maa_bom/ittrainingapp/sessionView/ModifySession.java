@@ -2,6 +2,7 @@ package com.cours644_1.maa_bom.ittrainingapp.sessionView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -10,6 +11,7 @@ import android.app.FragmentContainer;
 import android.app.FragmentController;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -80,6 +82,8 @@ public class ModifySession extends Activity {
         end=Calendar.getInstance();
         dataStore = DataGeneralStore.getStore(getApplicationContext());
         deleteButton = (Button) findViewById(R.id.act_session_modify_deleteButton);
+        roomTxt.setOnClickListener(new OnRoomClick());
+
 
         //récupération du cours courrant
         cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
@@ -171,8 +175,6 @@ public class ModifySession extends Activity {
         updateRooms();
     }
 
-
-
     private void updateRooms(){
         List<Room> temp=dataStore.getAvailableRooms(start.getTime(), end.getTime(),session);
         availableRooms= new Room[temp.size()];
@@ -200,19 +202,33 @@ public class ModifySession extends Activity {
     }
 
 
-
     private class OnRoomClick implements View.OnClickListener{
 
         @Override
         public void onClick(View v) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ModifySession.this);
+            builder.setTitle("Select room");//// TODO: 30.11.2015 localiser
+            String [] choices;
+            if (availableRooms.length==0)
+                choices=new String[]{NO_ROOM_AVAILABLE_ALERT};
+            else {
+                choices= new String[availableRooms.length];
+                for (int cpt=0;cpt<availableRooms.length;++cpt)
+                    choices[cpt]=availableRooms[cpt].getName();
+            }
+            builder.setItems(choices, new RoomSelectorAction());
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
         }
-        private class RoomSeter extends Dialog{
 
+    }
+    private class RoomSelectorAction implements DialogInterface.OnClickListener{
 
-            public RoomSeter(Context context) {
-                super(context);
-            }
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            setRoom(which);
+            dialog.dismiss();
         }
     }
     private class SaveAction implements View.OnClickListener{
@@ -350,6 +366,7 @@ public class ModifySession extends Activity {
             ModifySession.this.finish();
         }
     }
+
 
 
 }

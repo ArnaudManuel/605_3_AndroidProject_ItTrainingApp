@@ -19,6 +19,10 @@ public class Room {
             name=name + data.name[cpt];
         return name;
     }
+    @Override
+    public String toString(){
+        return getName();
+    }
 
     @Override
     public boolean equals(Object o){
