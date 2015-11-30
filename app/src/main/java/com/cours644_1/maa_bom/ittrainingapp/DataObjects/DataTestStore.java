@@ -432,7 +432,7 @@ return 0;
     }
 
     @Override
-    public List<Room> getAvailableRooms(Date start, Date end) {
+    public List<Room> getAvailableRooms(Date start, Date end, Session session) {
         List<Room> respons= new ArrayList<Room>();
         for (RoomData roomData : RoomsTable)
             respons.add(new Room(roomData));

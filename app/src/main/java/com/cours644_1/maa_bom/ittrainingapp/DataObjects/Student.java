@@ -37,6 +37,9 @@ public class Student implements Comparable<Student>{
         if(this.data.id== data.id)
             this.data=data;
     }
+    public boolean isActive(){
+        return data.isStudent;
+    }
     @Override
     public String toString(){
         return data.name +" "+data.firstname;

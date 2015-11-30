@@ -26,6 +26,7 @@ public class ModifyStudent extends Activity {
     private EditText firstnameTxtBx;
     private EditText mailTxtBx;
     private Button saveButton;
+    private Button deleteButton;
     private Button manageCours;
     private DataStore dataStore;
 
@@ -42,13 +43,21 @@ public class ModifyStudent extends Activity {
         dataStore=DataGeneralStore.getStore(getApplicationContext());
         manageCours = (Button) findViewById(R.id.act_student_modify_manageSessionButton);
         manageCours.setOnClickListener(new ManageCoursAction());
+        deleteButton = (Button) findViewById(R.id.act_student_modify_deleteButton);
+
+
             //reaserchig of the proper student
         int studentId = getIntent().getExtras().getInt("personId", -1);
         saveButton.setOnClickListener(new SaveStudentAction());
-        if (studentId < 0)
+        if (studentId < 0) {
             student = Student.newForCreation();
-        else
+            deleteButton.setVisibility(View.INVISIBLE);
+        }
+        else {
             student = dataStore.getStudentById(studentId).getModificator();
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(new DeleteAction());
+        }
     }
     @Override
     protected void onResume(){
@@ -128,6 +137,16 @@ public class ModifyStudent extends Activity {
             Intent intent = new Intent(getApplicationContext(), CoursSelectorActivity.class);
             intent.putExtra("personId", student.getId());
             startActivity(intent);
+        }
+    }
+    private class DeleteAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+            dataStore.delete(student);
+            finish();
+
         }
     }
 

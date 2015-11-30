@@ -28,6 +28,7 @@ public class ModifyTeacher extends Activity {
     private EditText mailTxtBx;
     private EditText descriptionTxtBx;
     private Button saveButton;
+    private Button deleteButton;
     private DataStore dataStore;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +42,19 @@ public class ModifyTeacher extends Activity {
             mailTxtBx = (EditText) findViewById(R.id.act_teacher_modify_mailTxtBx);
             descriptionTxtBx=(EditText)findViewById(R.id.act_teacher_modify_descTxtBx);
             saveButton = (Button) findViewById(R.id.act_teacher_modify_saveButton);
+            deleteButton = (Button) findViewById(R.id.act_teacher_modify_deleteButton);
 
             //reaserchig of the proper student
             int teacherId = getIntent().getExtras().getInt("personId", -1);
-            if (teacherId < 0)
+            if (teacherId < 0) {
                 teacher = teacher.newForCreation();
-            else
+                deleteButton.setVisibility(View.INVISIBLE);
+            }
+            else {
                 teacher = dataStore.getTeacherById(teacherId).getModificator();
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setOnClickListener(new DeleteAction());
+            }
         }
         {//seting default values in the editText & action listener on button
             if(teacher.getId()<0){
@@ -118,6 +125,14 @@ public class ModifyTeacher extends Activity {
                 startActivity(intent);
             }
 
+            finish();
+        }
+    }
+    private class DeleteAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            dataStore.delete(teacher);
             finish();
         }
     }

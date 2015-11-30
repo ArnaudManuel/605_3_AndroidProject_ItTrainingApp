@@ -14,8 +14,12 @@ public class SessionModificator extends Session {
         this.cours=cours;
     }
     public void setRoom(Room room) {
-        data.roomId=room.getId();
-        this.room=room;
+        if(room==null)
+            data.roomId=-1;
+        else {
+            data.roomId = room.getId();
+            this.room = room;
+        }
     }
 
     public void setStart(Date start) {

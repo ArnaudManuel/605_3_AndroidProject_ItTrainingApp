@@ -56,6 +56,10 @@ public final class ShowStudent extends Activity {
     protected void onResume(){
         super.onResume();
         student= dataStore.getStudentById(getIntent().getExtras().getInt("personId"));
+        if(false==student.isActive())
+            finish();
+
+
         nameTxt.setText(student.getName());
         firstnameTxt.setText(student.getFirstname());
         mailTxt.setText(student.getMail());

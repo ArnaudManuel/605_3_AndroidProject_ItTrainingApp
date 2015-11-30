@@ -18,6 +18,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
@@ -34,7 +36,8 @@ import java.util.List;
  * Created by arnaud on 23.11.2015.
  */
 public class ModifySession extends Activity {
-
+    private static String NO_ROOM_AVAILABLE_ALERT="no room available for the selected period";//// TODO: 30.11.2015 localiser ressource
+    private static String NO_ROOM_SELECTED_ALERT="no room selected";
     private Cours cours;
     private TextView nameTxt;
     private TextView descriptionTxt;
@@ -47,6 +50,7 @@ public class ModifySession extends Activity {
     private EditText endTimeTxt;
     private TextView roomTxt;
     private Button saveButton;
+    private Button deleteButton;
     private SimpleDateFormat dayFormat;
     private SimpleDateFormat timeFormat;
     private Calendar start;
@@ -75,15 +79,23 @@ public class ModifySession extends Activity {
         start=Calendar.getInstance();
         end=Calendar.getInstance();
         dataStore = DataGeneralStore.getStore(getApplicationContext());
+        deleteButton = (Button) findViewById(R.id.act_session_modify_deleteButton);
 
         //récupération du cours courrant
         cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
         //récupération de la seesion courante ou d'une nouvelle session pour le cours
         int sessionId = getIntent().getExtras().getInt("sessionId", -1);
-        if (sessionId < 0)
+        if (sessionId < 0) {
             session = cours.getNewSession();
-        else
-            session= dataStore.getSessionById(sessionId).getModificator();
+            deleteButton.setVisibility(View.INVISIBLE);
+        }
+        else {
+            session = dataStore.getSessionById(sessionId).getModificator();
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(new DeleteSessionAction());
+        }
+
+
         //encapsulation des dates dans des Calendar
         start.setTime(session.getStart());
         end.setTime(session.getEnd());
@@ -127,35 +139,64 @@ public class ModifySession extends Activity {
             }
         });
 
+        //updateRooms(); unecessary cause: called in refreshTimeField methode call before
 
-        if(session.getRoomName().equals("")) {
-            roomTxt.setText("no room atached yet");
-            updateRooms();
-            setRandomRoom();
-            roomTxt.setText(session.getRoomName());
+    }
+
+    private void setRoom(int index){
+        if (index<availableRooms.length){
+            session.setRoom(availableRooms[index]);
+            roomTxt.setText(availableRooms[index].getName());
         }
         else
-            roomTxt.setText(session.getRoomName());
+        {
+            session.setRoom(null);
+            roomTxt.setText(NO_ROOM_SELECTED_ALERT);
+        }
+    }
+    private boolean checkRoomavailability(Room room){
+        if(room==null)
+            return false;
+        for (int cpt=0;cpt<availableRooms.length;++cpt)
+            if (room.equals(availableRooms[cpt]))
+                return true;
+        return false;
+    }
 
-    }
-    private void setRandomRoom(){
-        session.setRoom(availableRooms[(int)(Math.random()*availableRooms.length)]);
-    }
     private void refreshTimeField(){
         startDayTxt.setText(dayFormat.format(start.getTime()));
         startTimeTxt.setText(timeFormat.format(start.getTime()));
         endDayTxt.setText(dayFormat.format(end.getTime()));
         endTimeTxt.setText(timeFormat.format(end.getTime()));
+        updateRooms();
     }
 
 
 
     private void updateRooms(){
-
-        List<Room> temp=dataStore.getAvailableRooms(start.getTime(), end.getTime());
+        List<Room> temp=dataStore.getAvailableRooms(start.getTime(), end.getTime(),session);
         availableRooms= new Room[temp.size()];
-        //// TODO: 24.11.2015   test vide?
         temp.toArray(availableRooms);
+        if (availableRooms.length==0) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    NO_ROOM_AVAILABLE_ALERT,
+                    Toast.LENGTH_LONG
+            ).show();
+            setRoom(0);
+        }
+        else
+            if(false==checkRoomavailability(session.getRoom())){
+                setRoom(0);
+                Toast.makeText(
+                        getApplicationContext(),
+                        "new room atribued",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+            else
+                roomTxt.setText(session.getRoomName());
+
     }
 
 
@@ -178,10 +219,21 @@ public class ModifySession extends Activity {
 
         @Override
         public void onClick(View v) {
-            session.setStart(start.getTime());
-            session.setEnd(end.getTime());
-            dataStore.save(session);
-            ModifySession.this.finish();
+            updateRooms();
+            if(session.getRoom()==null){
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Unable to save: "+NO_ROOM_AVAILABLE_ALERT,//// TODO: 30.11.2015 loclaiser
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
+            else {
+                session.setStart(start.getTime());
+                session.setEnd(end.getTime());
+                dataStore.save(session);
+                ModifySession.this.finish();
+            }
+
         }
     }
 
@@ -289,6 +341,7 @@ public class ModifySession extends Activity {
             refreshTimeField();
         }
     }
+
     private class DeleteSessionAction implements View.OnClickListener{
 
         @Override
@@ -297,5 +350,6 @@ public class ModifySession extends Activity {
             ModifySession.this.finish();
         }
     }
+
 
 }

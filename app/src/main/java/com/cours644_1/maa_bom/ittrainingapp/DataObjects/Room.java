@@ -20,4 +20,12 @@ public class Room {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o){
+        try {
+            return this.data.id==((Room)o).data.id;
+        }catch (Exception e) {}
+        return false;
+
+    }
 }

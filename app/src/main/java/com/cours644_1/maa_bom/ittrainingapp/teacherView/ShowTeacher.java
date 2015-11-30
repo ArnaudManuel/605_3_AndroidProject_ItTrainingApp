@@ -59,6 +59,8 @@ public class ShowTeacher extends Activity {
 protected void onResume(){
     super.onResume();
     teacher= dataStore.getTeacherById(getIntent().getExtras().getInt("personId"));
+    if(false==teacher.isActive())
+        finish();
     nameTxt.setText(teacher.getName());
     firstnameTxt.setText(teacher.getFirstname());
     mailTxt.setText(teacher.getMail());

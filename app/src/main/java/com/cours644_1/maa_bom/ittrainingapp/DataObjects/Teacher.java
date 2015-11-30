@@ -42,6 +42,9 @@ public class Teacher implements Comparable<Teacher>{
         return data.name +" "+data.firstname;
     }
 
+    public boolean isActive(){
+        return data.isTeacher;
+    }
     @Override
     public int compareTo(Teacher another) {
         return this.data.name.compareTo(another.data.name);

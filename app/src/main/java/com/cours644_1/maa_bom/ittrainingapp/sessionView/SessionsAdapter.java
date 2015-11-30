@@ -11,11 +11,16 @@ import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Session;
 import com.cours644_1.maa_bom.ittrainingapp.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by arnaud on 21.11.2015.
  */
 public class SessionsAdapter extends ArrayAdapter<Session> {
+    private Calendar startCal = Calendar.getInstance();
+    private Calendar endCal = Calendar.getInstance();
+    private static SimpleDateFormat fullFormat = new SimpleDateFormat("dd/MM':'  HH:mm");//// TODO: 21.11.2015 localiser préférence affichage de l'heure
+    private static SimpleDateFormat smallFormat= new SimpleDateFormat("HH:mm");
 
 
 
@@ -29,12 +34,18 @@ public class SessionsAdapter extends ArrayAdapter<Session> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.session_in_list, parent, false);
         }
 
-        SimpleDateFormat startFormat = new SimpleDateFormat("dd/MM':'  HH:mm");//// TODO: 21.11.2015 localiser préférence affichage de l'heure
-        SimpleDateFormat endFormat= new SimpleDateFormat("HH:mm");
         ((TextView) convertView.findViewById(R.id.session_in_list_cours_name)).setText(session.getCoursName());
         ((TextView) convertView.findViewById(R.id.session_in_list_room_name)).setText(session.getRoomName());
-        ((TextView) convertView.findViewById(R.id.session_in_list_time_start)).setText(startFormat.format(session.getStart()));
-        ((TextView) convertView.findViewById(R.id.session_in_list_time_end)).setText(endFormat.format(session.getEnd()));
+        ((TextView) convertView.findViewById(R.id.session_in_list_time_start)).setText(fullFormat.format(session.getStart()));
+        {
+            startCal.setTime(session.getStart());
+            endCal.setTime(session.getEnd());
+            //check if end and start are the same day, if not, show full date in time_end field
+            if(startCal.get(Calendar.YEAR)==endCal.get(Calendar.YEAR)&&startCal.get(Calendar.DAY_OF_YEAR)==endCal.get(Calendar.DAY_OF_YEAR))
+                ((TextView) convertView.findViewById(R.id.session_in_list_time_end)).setText(smallFormat.format(session.getEnd()));
+            else
+                ((TextView) convertView.findViewById(R.id.session_in_list_time_end)).setText(fullFormat.format(session.getEnd()));
+        }
         ((TextView) convertView.findViewById(R.id.session_in_list_cours_desc)).setText(session.getCoursDesc());
 
 

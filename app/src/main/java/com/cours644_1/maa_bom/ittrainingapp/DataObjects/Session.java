@@ -34,6 +34,7 @@ public class Session implements Comparable<Session>{
     public Date getEnd(){
         return data.end;
     }
+    public Room getRoom(){return room;}
 
     public String getCoursName(){
         return cours.getName();

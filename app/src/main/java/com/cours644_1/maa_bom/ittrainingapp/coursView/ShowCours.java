@@ -63,6 +63,9 @@ public class ShowCours extends Activity {
     protected void onResume(){
         super.onResume();
         cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
+        if(cours==null)
+            finish();
+
         nameTxt.setText(cours.getName());
         descriptionTxt.setText(cours.getDescription());
 

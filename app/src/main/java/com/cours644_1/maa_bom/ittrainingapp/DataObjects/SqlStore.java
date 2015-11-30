@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -696,50 +698,101 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
     }
 
     @Override
-    public List<Room> getAvailableRooms(Date start, Date end) {
+    public List<Room> getAvailableRooms(Date start, Date end, Session session) {
         String tempTableName = "tempTable";
+        List<Long> usedRoomIds = new ArrayList<>();
 
+        //to know whitch room is currently available, we select all sessions performing in the periode, then choose rooms who ar not used.
+
+        /*
+        query:
+        create a new table (temporary) as all sessions who end after the wanted start time
+         */
         //créé une table temporaire de tout ce qui finit après le début du cours
         String query = iptainingContract.SqlCommand.CreateTable+
                 tempTableName
-                +" AS SELECT "
-                + iptainingContract.SessionTable.RoomId+", "
-                + iptainingContract.SessionTable.Start+", "
-                + iptainingContract.SessionTable.End
+                +" AS SELECT *"
                 +" FROM "+ iptainingContract.SessionTable.Table_name
                 +" WHERE "
                 + iptainingContract.SessionTable.End+ " > "
                 + start.getTime();
 
-        //supprime de la table tempèraire tout ce qui commence après la fin
-        String clause = iptainingContract.SessionTable.Start+">?";
-        String[] conds = {end.getTime()+""};
+
+        String clause;
+        String[] conds;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.execSQL(query);
-        db.delete(tempTableName,clause, conds);
 
-        //select all used room ids
-        String[] selected = {iptainingContract.SessionTable.RoomId};
-        List<Long> usedRoomIds = new ArrayList<>();
-        Cursor curs = db.query(
-                tempTableName,
-                selected,
-                null,
-                null,
-                null,
-                null,
-                null);
-        if (curs!=null){
-            for (curs.moveToFirst();curs.isAfterLast()==false;curs.moveToNext()){
-                usedRoomIds.add(new Long(
-                        curs.getLong(curs.getColumnIndex(iptainingContract.SessionTable.RoomId))
-                ));
+        /*
+        try - catch  block is hier to performe dstruction of the temp table even if an exception occure.
+        if we not use this artefact, if an exception occure, we do not dropt the temp table so we can not recreate it.
+        the we have exception on cascade, and we are not able to perform the opération of finding available rooms.
+        */
+        Cursor curs;
+
+
+boolean isclearlyExecuted=false;
+        try {
+            db.execSQL(query);
+            /*
+        query:
+        remove from the temp table all sessions who start after the wanted end
+         */
+
+            clause = iptainingContract.SessionTable.Start+">?";
+            conds =new String[] {end.getTime()+""};
+            db.delete(tempTableName, clause, conds);
+        /*
+        query:
+        remove from the temp table the current session (the room is available for it)
+         */
+
+            clause = iptainingContract.SessionTable._ID + "=?";
+            conds = new String[]{session.getId() + ""};
+            db.delete(tempTableName, clause, conds);//// TODO: 30.11.2015 on plante là
+
+
+            //select all used room ids
+            String[] selected = {iptainingContract.SessionTable.RoomId};
+            usedRoomIds = new ArrayList<>();
+            curs = db.query(
+                    tempTableName,
+                    selected,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+
+            if (curs != null) {
+                for (curs.moveToFirst(); curs.isAfterLast() == false; curs.moveToNext()) {
+                    usedRoomIds.add(new Long(
+                            curs.getLong(curs.getColumnIndex(iptainingContract.SessionTable.RoomId))
+                    ));
+                }
+                curs.close();
+
             }
-            curs.close();
+            isclearlyExecuted=true;
+        }catch (Exception e){}
 
+        try {
+            //drop the temp table
+            db.execSQL(iptainingContract.SqlCommand.DestroyTable+tempTableName);
+        }catch (Exception e){}
+
+
+
+        if(isclearlyExecuted==false){
+            Toast.makeText(
+                    context,
+                    "an error has occured when charging available room, reperfom opération",//// TODO: 30.11.2015 localise
+                    Toast.LENGTH_SHORT
+            ).show();
+            //forcing return of the operation by user, juged preferable as giving all rooms as available
+            return new ArrayList<Room>();
         }
-        db.execSQL(iptainingContract.SqlCommand.DestroyTable+tempTableName);
+
         if(usedRoomIds.size()==0){
             curs=db.query(
                     iptainingContract.RoomTable.Table_name,

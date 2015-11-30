@@ -53,6 +53,12 @@
             android:text="Save"
             android:id="@+id/act_teacher_modify_saveButton"
             android:layout_column="0" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/act_teacher_modify_deleteButton"
+            android:layout_column="0" />
 
         <ListView
             android:layout_width="match_parent"

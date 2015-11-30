@@ -33,7 +33,7 @@ public class ModifyCours extends Activity {
     private EditText nameTxtBx;
     private EditText descriptionTxtBx;
     private Button saveButton;
-
+    private Button deleteButton;
     private Button atributeTeacher;
     private DataStore dataStore;
 
@@ -51,13 +51,23 @@ public class ModifyCours extends Activity {
             atributeTeacher = (Button) findViewById(R.id.act_cours_modify_atributeTeacherButton);
             atributeTeacher.setOnClickListener(new AtributeTeacherAction());
             saveButton.setOnClickListener(new SaveCoursAction());
+            deleteButton = (Button) findViewById(R.id.act_cours_modify_deleteButton);
+
 
             //reaserchig of the proper student
             int coursId = getIntent().getExtras().getInt("coursId", -1);
-            if (coursId < 0)
+            if (coursId < 0) {
                 cours = Cours.newForCreation();
-            else
+                deleteButton.setVisibility(View.INVISIBLE);
+            }
+            else {
                 cours = dataStore.getCoursById(coursId).getModificator();
+                deleteButton.setVisibility(View.VISIBLE);
+                deleteButton.setOnClickListener(new DeleteAction());
+            }
+
+
+
         }
         {//seting default values in the editText & action listener on button
             if(cours.getId()<0){
@@ -131,6 +141,15 @@ public class ModifyCours extends Activity {
             Intent intent = new Intent(ModifyCours.this.getApplicationContext(),MultipleTeacher.class);
             intent.putExtra("coursId", cours.getId());
             startActivity(intent);
+        }
+    }
+    private class DeleteAction implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+            dataStore.delete(cours);
+            finish();
         }
     }
 
