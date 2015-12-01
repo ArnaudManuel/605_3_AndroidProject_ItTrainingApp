@@ -4,31 +4,5 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/theme"
-        android:id="@+id/change_theme_txt"
-        android:layout_weight="0.09"
-        android:onClick="onClick"
-        android:clickable="true"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/langue"
-        android:id="@+id/change_language_txt"
-        android:layout_weight="0.09"
-        android:onClick="onClick"
-        android:clickable="true"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/police"
-        android:id="@+id/change_police_txt"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.09"
-        android:onClick="onClick"
-        android:clickable="true"/>
 </LinearLayout>

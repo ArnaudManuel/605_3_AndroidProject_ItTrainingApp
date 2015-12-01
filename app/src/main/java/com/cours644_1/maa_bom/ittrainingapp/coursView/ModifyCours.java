@@ -72,8 +72,6 @@ public class ModifyCours extends Activity {
         {//seting default values in the editText & action listener on button
             if(cours.getId()<0){
                 //// TODO: 18.11.2015 put some localised context, and do not save default data
-                nameTxtBx.setText("name");
-                descriptionTxtBx.setText("description");
                 atributeTeacher.setVisibility(View.INVISIBLE);
             }
             else{

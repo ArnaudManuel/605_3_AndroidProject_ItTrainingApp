@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.Locale;
 
@@ -27,6 +28,7 @@ public class SettingsActivity extends Activity{
         setContentView(R.layout.act_settings);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        changeLanguage(sharedPrefs.getString("pref_lang", "fr"));
 
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content,new SettingsFragment())
@@ -48,49 +50,16 @@ public class SettingsActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void onClick(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        switch (v.getId()){
-            case R.id.change_theme_txt:
-                CharSequence colors[] = new CharSequence[] {"red", "green", "blue", "black", "grey"};
-                builder.setTitle("Choisir la couleur du thème");
-                builder.setItems(colors, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActionBar bar = getActionBar();
-                        bar.setBackgroundDrawable(new ColorDrawable(000000));
-                    }
-                });
-                builder.show();
-                break;
-            case R.id.change_language_txt:
-                CharSequence language[] = new CharSequence[] {"Français", "Anglais"};
-                builder.setTitle("Choisir la langue");
-                builder.setItems(language, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // the user clicked on colors[which]
-                    }
-                });
-                builder.show();
-                break;
-            case R.id.change_police_txt:
-                CharSequence taille[] = new CharSequence[] {"Petit", "Moyen", "Grand"};
-                builder.setTitle("Choisir la taille de police");
-                builder.setItems(taille, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // the user clicked on colors[which]
-                    }
-                });
-                builder.show();
-                break;
-        }
-
-
-
+    public void changeLanguage(String lang){
+        Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
+        android.content.res.Configuration config = new android.content.res.Configuration();
+        config.locale = myLocale;
+        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
+
+
+
 
 
 }

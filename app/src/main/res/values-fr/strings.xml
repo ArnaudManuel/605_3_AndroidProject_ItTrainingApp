@@ -16,4 +16,7 @@
     <string name="langue">Langue</string>
     <string name="police">Taille de police</string>
     <string name="add_teacher">Ajouter un enseignant</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="next_session">PROCHAINE SESSION</string>
 </resources>

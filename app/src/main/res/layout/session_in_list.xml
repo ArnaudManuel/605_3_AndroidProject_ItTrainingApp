@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="30dp"
-
+    android:background="#CECECE"
+    android:paddingLeft="10dp"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:paddingRight="10dp"
     >
 
     <LinearLayout
@@ -24,9 +28,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_marginLeft="15dp"
-            android:textColor="#666666"
             android:gravity="right"
-
+            android:textColor="#666666"
             android:id="@+id/session_in_list_time_end" />
     </LinearLayout>
     <LinearLayout
@@ -37,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#666666"
+            android:textColor="#000000"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/session_in_list_cours_name" />
 
@@ -53,7 +56,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#666666"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/session_in_list_cours_desc" />
 </LinearLayout>

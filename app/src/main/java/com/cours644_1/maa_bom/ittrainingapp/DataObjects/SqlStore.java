@@ -36,7 +36,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         db.execSQL(iptainingContract.TeachersCoursTable.getCreateQuery());
         db.execSQL(iptainingContract.StudentsCoursTable.getCreateQuery());
 
-        ContentValues[] rooms = iptainingContract.RoomTable.getSomeRooms(5);
+        ContentValues[] rooms = iptainingContract.RoomTable.getSomeRooms(15);
         for (ContentValues room : rooms)
             db.insert(iptainingContract.RoomTable.Table_name,"" ,room);
     }

@@ -58,11 +58,7 @@ public class ModifyTeacher extends Activity {
         }
         {//seting default values in the editText & action listener on button
             if(teacher.getId()<0){
-                //// TODO: 18.11.2015 put some localised context, and do not save default data
-                nameTxtBx.setText("name");
-                firstnameTxtBx.setText("firstName");
-                mailTxtBx.setText("Adresse E-mail");
-                descriptionTxtBx.setText("Description");
+                //do nothing
             }
             else{
                 nameTxtBx.setText(teacher.getName());

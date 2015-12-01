@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="@string/name"
         android:ems="10"
         android:id="@+id/act_cours_modify_nameTxtBx"
-        android:layout_column="0" />
+        android:layout_column="0"
+        style="@style/TextField"/>
 
      <EditText
         android:layout_width="match_parent"
@@ -20,25 +21,35 @@
         android:inputType="textMultiLine"
         android:ems="10"
         android:id="@+id/act_cours_modify_descTxtBx"
-        android:text="Description" />
+         android:hint="@string/description"
+         style="@style/TextField"/>
+    <LinearLayout
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Save"
+            android:id="@+id/act_cours_modify_saveButton" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:id="@+id/act_cours_modify_deleteButton" />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="attribute teacher"
+            android:id="@+id/act_cours_modify_atributeTeacherButton"/>
+        </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/act_cours_modify_saveButton"
-        android:layout_column="0" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:id="@+id/act_cours_modify_deleteButton"
-        android:layout_column="0" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="attribute teacher"
-        android:id="@+id/act_cours_modify_atributeTeacherButton"
-        android:layout_column="0" />
 
 </LinearLayout>

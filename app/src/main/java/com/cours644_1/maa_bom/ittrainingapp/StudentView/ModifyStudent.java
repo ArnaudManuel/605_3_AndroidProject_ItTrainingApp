@@ -63,11 +63,7 @@ public class ModifyStudent extends Activity {
     protected void onResume(){
         super.onResume();
         if(student.getId()<0){
-            //// TODO: 18.11.2015 put some localised context, and do not save default data
-            nameTxtBx.setText("name");
-            firstnameTxtBx.setText("firstName");
-            mailTxtBx.setText("Adresse E-mail");
-            manageCours.setVisibility(View.INVISIBLE);
+            // do nothing
         }
         else{
             nameTxtBx.setText(student.getName());

@@ -10,6 +10,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/act_teacher_show_nameTxt"
+        style="@style/TextField"
         />
 
     <TextView
@@ -18,6 +19,7 @@
         android:ems="10"
         android:id="@+id/act_teacher_show_firstnameTxt"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        style="@style/TextField"
         />
 
     <TextView
@@ -26,6 +28,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/act_teacher_show_mailTxt"
+        style="@style/TextField"
         />
 
     <TextView
@@ -34,6 +37,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:ems="10"
         android:id="@+id/act_teacher_show_descriptionTxt"
+        style="@style/TextField"
         />
 
     <Button
@@ -45,17 +49,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="next Sessions"
+        android:text="@string/next_session"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        style="@style/titleSession"
         />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5pt"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:id="@+id/act_teacher_show_sessions_list"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:dividerHeight="5dp"
+        android:divider="#ffffff"/>
 
 </LinearLayout>
