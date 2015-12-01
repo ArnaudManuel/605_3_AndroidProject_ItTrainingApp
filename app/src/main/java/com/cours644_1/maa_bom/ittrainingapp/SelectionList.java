@@ -23,7 +23,7 @@ import com.cours644_1.maa_bom.ittrainingapp.teacherView.ShowTeacher;
 import java.util.Locale;
 
 
-public abstract class SelectionList extends Activity {
+public abstract class SelectionList extends CustomActivity {
     protected Object[] items;
     protected ArrayAdapter adapter;
     protected Button newItemButton;

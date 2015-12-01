@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cours644_1.maa_bom.ittrainingapp.CustomActivity;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Session;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by arnaud on 19.11.2015.
  */
-public class ShowTeacher extends Activity {
+public class ShowTeacher extends CustomActivity {
     private Teacher teacher;
     private TextView nameTxt;
     private TextView firstnameTxt;

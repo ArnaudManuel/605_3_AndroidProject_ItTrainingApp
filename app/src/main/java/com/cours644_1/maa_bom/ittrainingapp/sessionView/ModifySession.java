@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cours644_1.maa_bom.ittrainingapp.CustomActivity;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
@@ -37,7 +38,7 @@ import java.util.List;
 /**
  * Created by arnaud on 23.11.2015.
  */
-public class ModifySession extends Activity {
+public class ModifySession extends CustomActivity {
     private static String NO_ROOM_AVAILABLE_ALERT="no room available for the selected period";//// TODO: 30.11.2015 localiser ressource
     private static String NO_ROOM_SELECTED_ALERT="no room selected";
     private Cours cours;

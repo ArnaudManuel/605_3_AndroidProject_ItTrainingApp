@@ -17,7 +17,7 @@ import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends CustomActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

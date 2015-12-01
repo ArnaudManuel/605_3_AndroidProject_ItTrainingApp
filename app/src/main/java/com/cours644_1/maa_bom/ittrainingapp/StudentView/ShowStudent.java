@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cours644_1.maa_bom.ittrainingapp.CustomActivity;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Session;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by arnaud on 14.11.2015.
  */
-public final class ShowStudent extends Activity {
+public final class ShowStudent extends CustomActivity {
     private Student student;
     private TextView nameTxt;
     private TextView firstnameTxt;

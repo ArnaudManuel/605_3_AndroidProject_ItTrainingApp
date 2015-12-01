@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.cours644_1.maa_bom.ittrainingapp.CustomActivity;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
@@ -20,7 +22,7 @@ import com.cours644_1.maa_bom.ittrainingapp.coursView.CoursSelectorActivity;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.OneTeacher;
 import com.cours644_1.maa_bom.ittrainingapp.teacherView.ShowTeacher;
 
-public class ModifyStudent extends Activity {
+public class ModifyStudent extends CustomActivity {
     private StudentModificator student;
     private EditText nameTxtBx;
     private EditText firstnameTxtBx;

@@ -3,6 +3,7 @@ package com.cours644_1.maa_bom.ittrainingapp.coursView;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cours644_1.maa_bom.ittrainingapp.CustomActivity;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
@@ -30,7 +32,7 @@ import java.util.List;
 /**
  * Created by arnaud on 20.11.2015.
  */
-public class ShowCours extends Activity {
+public class ShowCours extends CustomActivity {
     private Cours cours;
     private TextView nameTxt;
     private TextView descriptionTxt;
@@ -111,6 +113,8 @@ public class ShowCours extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private class ModifyCoursAction implements View.OnClickListener{
 

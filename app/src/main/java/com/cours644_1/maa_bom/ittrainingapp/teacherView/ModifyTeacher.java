@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cours644_1.maa_bom.ittrainingapp.CustomActivity;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataGeneralStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.DataStore;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
@@ -21,7 +22,7 @@ import com.cours644_1.maa_bom.ittrainingapp.SettingsActivity;
 /**
  * Created by arnaud on 19.11.2015.
  */
-public class ModifyTeacher extends Activity {
+public class ModifyTeacher extends CustomActivity {
     private TeacherModificator teacher;
     private EditText nameTxtBx;
     private EditText firstnameTxtBx;
