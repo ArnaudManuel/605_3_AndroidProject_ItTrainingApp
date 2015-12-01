@@ -38,7 +38,7 @@ public class SessionsList extends SelectionList {
                 sessions);
 
         list.setOnItemClickListener(new OnSessionClick());
-        newItemButton.setText("add new session");// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText(R.string.add_new_sesion);
         newItemButton.setOnClickListener(new NewSessionAction());
     }
 /*

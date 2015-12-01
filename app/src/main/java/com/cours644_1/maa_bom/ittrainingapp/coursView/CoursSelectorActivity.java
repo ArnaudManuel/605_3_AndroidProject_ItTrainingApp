@@ -5,6 +5,7 @@ import android.view.View;
 import com.cours644_1.maa_bom.ittrainingapp.BinaryArrayAdapter;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
+import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SelectableItem;
 import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 
@@ -50,11 +51,11 @@ public class CoursSelectorActivity extends SelectionList {
         adapter = new BinaryArrayAdapter(
                 this,
                 (SelectableItem[]) items,
-                "Registred",//TODO localisation
-                "Unregistred"//TODO localisation
+                getString(R.string.in_charge),
+                getString(R.string.not_in_charge)
         );
 
-        newItemButton.setText("save modifications");// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText(getString(R.string.act_save));// // TODO: 21.11.2015 localiser ressource
         newItemButton.setOnClickListener(new saveAction());
     }
 

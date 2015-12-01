@@ -6,6 +6,7 @@ import com.cours644_1.maa_bom.ittrainingapp.BinaryArrayAdapter;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Cours;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Student;
 import com.cours644_1.maa_bom.ittrainingapp.DataObjects.Teacher;
+import com.cours644_1.maa_bom.ittrainingapp.R;
 import com.cours644_1.maa_bom.ittrainingapp.SelectableItem;
 import com.cours644_1.maa_bom.ittrainingapp.SelectionList;
 
@@ -53,11 +54,11 @@ public class MultipleTeacher extends SelectionList {
         adapter = new BinaryArrayAdapter(
                 this,
                 (SelectableItem[]) items,
-                "In charge",//TODO localisation
-                "Unconcerned"//TODO localisation
+                getString(R.string.in_charge),
+                getString(R.string.not_in_charge)
         );
 
-        newItemButton.setText("save modifications");// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText(getString(R.string.act_save));
         newItemButton.setOnClickListener(new saveAction());
     }
 

@@ -43,7 +43,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Modify"
+        android:text="@string/action_modify"
         android:id="@+id/act_teacher_show_modifyButton"
         />
     <TextView

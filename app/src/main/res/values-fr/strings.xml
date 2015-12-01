@@ -18,7 +18,26 @@
     <string name="add_teacher">Ajouter un enseignant</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
-    <string name="next_session">PROCHAINE SESSION</string>
+    <string name="next_session">PROCHAINES SESSIONS</string>
     <string name="attr_teacher">Attribuer un enseignant</string>
     <string name="act_save">Enregistrer</string>
+    <string name="in_charge">En charge</string>
+    <string name="not_in_charge">Non concerné</string>
+    <string name="manage_teacher">Manage teacher</string>
+    <string name="show_teacher">show teacher</string>
+    <string name="firstname">Firstname</string>
+    <string name="mail">Mail</string>
+    <string name="modify_teacher">Modify teacher</string>
+    <string name="select_one_student">select on student</string>
+    <string name="add_student">add Student</string>
+    <string name="manage_cours">manage cours</string>
+    <string name="detail_student">Detail Student</string>
+    <string name="choose_cours">choose cours</string>
+    <string name="modify_cours">Modify cours</string>
+    <string name="show_cours">show cours</string>
+    <string name="select_teacher">Select teacher</string>
+    <string name="manage_session">Manage session</string>
+    <string name="modify_session">Modify session</string>
+    <string name="add_cours">add Cours</string>
+    <string name="add_new_sesion">add new session</string>
 </resources>

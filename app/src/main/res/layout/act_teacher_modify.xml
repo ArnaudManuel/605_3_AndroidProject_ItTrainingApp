@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="Name"
+            android:hint="@string/name"
             android:ems="10"
             android:id="@+id/act_teacher_modify_nameTxtBx"
             android:layout_column="0"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:hint="Firstname"
+            android:hint="@string/firstname"
             android:ems="10"
             android:id="@+id/act_teacher_modify_firstNameTxtBx"
             android:layout_column="0"
@@ -38,7 +38,7 @@
             android:ems="10"
             android:id="@+id/act_teacher_modify_mailTxtBx"
             android:layout_column="0"
-            android:hint="Mail"
+            android:hint="@string/mail"
             style="@style/TextField"/>
 
         <EditText
@@ -47,7 +47,7 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/act_teacher_modify_descTxtBx"
-            android:hint="Description"
+            android:hint="@string/description"
             style="@style/TextField"/>
     <LinearLayout
         style="@android:style/ButtonBar"
@@ -59,14 +59,14 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Save"
+            android:text="@string/act_save"
             android:id="@+id/act_teacher_modify_saveButton" />
         <Button
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Delete"
+            android:text="@string/action_delete"
             android:id="@+id/act_teacher_modify_deleteButton"/>
         </LinearLayout>
 

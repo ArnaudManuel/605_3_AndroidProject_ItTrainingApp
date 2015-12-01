@@ -25,14 +25,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Modify"
+        android:text="@string/action_modify"
         android:id="@+id/act_cours_show_modifyButton"
         style="@style/TextField"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="manage sessions"
+        android:text="@string/manage_session"
         android:id="@+id/act_cours_show_manageSessonButton"
         android:layout_column="0" />
 

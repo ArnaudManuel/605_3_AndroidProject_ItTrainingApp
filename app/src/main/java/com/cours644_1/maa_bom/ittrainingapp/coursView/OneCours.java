@@ -29,7 +29,7 @@ public class OneCours extends SelectionList {
                 items);
 
         list.setOnItemClickListener(new OnCoursClick());
-        newItemButton.setText("add Cours");// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText(R.string.add_cours);// // TODO: 21.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewCorsAction());
     }
 

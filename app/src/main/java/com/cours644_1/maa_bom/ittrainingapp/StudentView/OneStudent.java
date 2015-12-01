@@ -29,7 +29,7 @@ public final class OneStudent extends SelectionList {
                 items);
 
         list.setOnItemClickListener(new OnStudentClick());
-        newItemButton.setText("add Student");//// TODO: 19.11.2015 localiser ressource
+        newItemButton.setText(R.string.add_student);//// TODO: 19.11.2015 localiser ressource
         newItemButton.setOnClickListener(new NewStudentAction());
 
     }
