@@ -55,7 +55,7 @@ public class CoursSelectorActivity extends SelectionList {
                 getString(R.string.not_in_charge)
         );
 
-        newItemButton.setText(getString(R.string.act_save));// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText(getString(R.string.act_save));
         newItemButton.setOnClickListener(new saveAction());
     }
 

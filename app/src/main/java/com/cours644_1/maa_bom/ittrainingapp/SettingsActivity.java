@@ -21,7 +21,7 @@ import java.util.Locale;
  * Activité pour les settings de l'application
  * Pour le moment le seul paramètre implémenté c'est la langue
  */
-public class SettingsActivity extends Activity{
+public class SettingsActivity extends CustomActivity{
     private final String lang = "fr";
 
     @Override
@@ -29,8 +29,7 @@ public class SettingsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_settings);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        changeLanguage(sharedPrefs.getString("pref_lang", "fr"));
+
 
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content,new SettingsFragment())
@@ -52,13 +51,6 @@ public class SettingsActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void changeLanguage(String lang){
-        Locale myLocale = new Locale(lang);
-        Locale.setDefault(myLocale);
-        android.content.res.Configuration config = new android.content.res.Configuration();
-        config.locale = myLocale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-    }
 
 
 

@@ -25,7 +25,6 @@ public class MainActivity extends CustomActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         Button manageStudentBtn = (Button)findViewById(R.id.act_home_student_button);
         manageStudentBtn.setOnClickListener(new ManageStudentAction());
@@ -87,6 +86,8 @@ public class MainActivity extends CustomActivity {
             startActivity(new Intent(getApplicationContext(), OneCours.class));
         }
     }
+
+
 
 
 

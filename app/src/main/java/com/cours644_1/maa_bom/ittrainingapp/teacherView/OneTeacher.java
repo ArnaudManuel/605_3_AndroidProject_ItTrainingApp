@@ -31,7 +31,7 @@ public final class OneTeacher extends SelectionList {
                 items);
 
         list.setOnItemClickListener(new OnTeacherClick());
-        newItemButton.setText(R.string.add_teacher);//// TODO: 19.11.2015 localiser ressource
+        newItemButton.setText(R.string.add_teacher);
         newItemButton.setOnClickListener(new NewTeacherAction());
     }
 /*

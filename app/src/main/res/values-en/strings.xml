@@ -33,4 +33,9 @@
     <string name="modify_session">Modify session</string>
     <string name="add_cours">Add course</string>
     <string name="add_new_sesion">Add new session</string>
+    <string name="error_message_room">an error has occured when charging available room, reperfom opération</string>
+    <string name="no_room_period">no room available for the selected period</string>
+    <string name="no_room_selected">no room selected</string>
+    <string name="no_save">"Unable to save: "</string>
+    <string name="select_room">Select room</string>
 </resources>

@@ -39,8 +39,8 @@ import java.util.List;
  * Created by arnaud on 23.11.2015.
  */
 public class ModifySession extends CustomActivity {
-    private static String NO_ROOM_AVAILABLE_ALERT="no room available for the selected period";//// TODO: 30.11.2015 localiser ressource
-    private static String NO_ROOM_SELECTED_ALERT="no room selected";
+    private static String NO_ROOM_AVAILABLE_ALERT="@string/no_room_period";
+    private static String NO_ROOM_SELECTED_ALERT="@string/no_room_selected";
     private Cours cours;
     private TextView nameTxt;
     private TextView descriptionTxt;
@@ -77,8 +77,8 @@ public class ModifySession extends CustomActivity {
         endTimeTxt = (EditText)findViewById(R.id.act_session_modify_end_time);
         roomTxt = (TextView)findViewById(R.id.act_session_modify_roomNumberTxt);
         saveButton = (Button)findViewById(R.id.act_session_modify_save_Button);
-        dayFormat = new SimpleDateFormat("yyyy/dd/MM");//// TODO: 21.11.2015 localiser préférence affichage de l'heure
-        timeFormat= new SimpleDateFormat("HH:mm");//TODO localiser la préférence de l'afichage (24 heure | am/pm)
+        dayFormat = new SimpleDateFormat("yyyy/dd/MM");
+        timeFormat= new SimpleDateFormat("HH:mm");
         start=Calendar.getInstance();
         end=Calendar.getInstance();
         dataStore = DataGeneralStore.getStore(getApplicationContext());
@@ -208,7 +208,7 @@ public class ModifySession extends CustomActivity {
         @Override
         public void onClick(View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(ModifySession.this);
-            builder.setTitle("Select room");//// TODO: 30.11.2015 localiser
+            builder.setTitle(R.string.select_room);
             String [] choices;
             if (availableRooms.length==0)
                 choices=new String[]{NO_ROOM_AVAILABLE_ALERT};
@@ -240,7 +240,7 @@ public class ModifySession extends CustomActivity {
             if(session.getRoom()==null){
                 Toast.makeText(
                         getApplicationContext(),
-                        "Unable to save: "+NO_ROOM_AVAILABLE_ALERT,//// TODO: 30.11.2015 loclaiser
+                        getString(R.string.no_save)+NO_ROOM_AVAILABLE_ALERT,
                         Toast.LENGTH_LONG)
                         .show();
             }

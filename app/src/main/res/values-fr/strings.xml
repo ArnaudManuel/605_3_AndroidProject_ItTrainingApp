@@ -33,4 +33,9 @@
     <string name="modify_session">Modifier la session</string>
     <string name="add_cours">Ajouter un cours</string>
     <string name="add_new_sesion">Ajouter une session</string>
+    <string name="error_message_room">une erreur est survenue au chargement des salle, renouveller l\'opération</string>
+    <string name="no_room_period">Pas de salle disponible pour cette période</string>
+    <string name="no_room_selected">Pas de salle sélectionnée</string>
+    <string name="no_save">Impossible de sauver :</string>
+    <string name="select_room">Sélectionner la salle</string>
 </resources>

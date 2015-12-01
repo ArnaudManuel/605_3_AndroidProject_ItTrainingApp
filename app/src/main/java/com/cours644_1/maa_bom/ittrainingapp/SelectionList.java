@@ -39,7 +39,6 @@ public abstract class SelectionList extends CustomActivity {
         list = (ListView) findViewById(R.id.selection_view);
         newItemButton = (Button) findViewById(R.id.slection_list__add_new_item_button);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 
     }
@@ -54,6 +53,7 @@ public abstract class SelectionList extends CustomActivity {
 
         list.setAdapter(adapter);
     }
+
 
 
 

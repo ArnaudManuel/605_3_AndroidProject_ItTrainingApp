@@ -29,7 +29,7 @@ public class OneCours extends SelectionList {
                 items);
 
         list.setOnItemClickListener(new OnCoursClick());
-        newItemButton.setText(R.string.add_cours);// // TODO: 21.11.2015 localiser ressource
+        newItemButton.setText(R.string.add_cours);
         newItemButton.setOnClickListener(new NewCorsAction());
     }
 
@@ -67,7 +67,7 @@ public class OneCours extends SelectionList {
             int itemId=((Cours)items[position]).getId();
 
             Intent intent= new Intent(getApplicationContext(),ShowCours.class);
-            intent.putExtra("coursId",itemId);// TODO: 21.11.2015 mettre danas un ficheir de ressource
+            intent.putExtra("coursId",itemId);
             startActivity(intent);
         }
     }
@@ -77,7 +77,7 @@ public class OneCours extends SelectionList {
         @Override
         public void onClick(View v) {
             Intent intent= new Intent(getApplicationContext(),ModifyCours.class);
-            intent.putExtra("coursId",-1);//// TODO: 21.11.2015 mettre danas un ficheir de ressource
+            intent.putExtra("coursId",-1);
             startActivity(intent);
         }
     }

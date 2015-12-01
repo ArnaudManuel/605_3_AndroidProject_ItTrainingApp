@@ -19,7 +19,7 @@ import java.util.Calendar;
 public class SessionsAdapter extends ArrayAdapter<Session> {
     private Calendar startCal = Calendar.getInstance();
     private Calendar endCal = Calendar.getInstance();
-    private static SimpleDateFormat fullFormat = new SimpleDateFormat("dd/MM':'  HH:mm");//// TODO: 21.11.2015 localiser préférence affichage de l'heure
+    private static SimpleDateFormat fullFormat = new SimpleDateFormat("dd/MM':'  HH:mm");
     private static SimpleDateFormat smallFormat= new SimpleDateFormat("HH:mm");
 
 

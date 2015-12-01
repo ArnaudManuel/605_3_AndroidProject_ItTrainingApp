@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.widget.Toast;
 
+import com.cours644_1.maa_bom.ittrainingapp.R;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -792,7 +794,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         if(isclearlyExecuted==false){
             Toast.makeText(
                     context,
-                    "an error has occured when charging available room, reperfom opération",//// TODO: 30.11.2015 localise
+                    R.string.error_message_room,
                     Toast.LENGTH_SHORT
             ).show();
             //forcing return of the operation by user, juged preferable as giving all rooms as available
