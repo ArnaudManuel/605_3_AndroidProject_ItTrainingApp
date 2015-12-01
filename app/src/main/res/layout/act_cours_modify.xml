@@ -33,21 +33,21 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Save"
+            android:text="@string/act_save"
             android:id="@+id/act_cours_modify_saveButton" />
         <Button
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Delete"
+            android:text="@string/action_delete"
             android:id="@+id/act_cours_modify_deleteButton" />
         <Button
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="attribute teacher"
+            android:text="@string/attr_teacher"
             android:id="@+id/act_cours_modify_atributeTeacherButton"/>
         </LinearLayout>
 

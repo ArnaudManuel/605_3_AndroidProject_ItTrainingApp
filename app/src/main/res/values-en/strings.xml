@@ -19,4 +19,6 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="next_session">PROCHAINE SESSION</string>
+    <string name="attr_teacher">Attribute teacher</string>
+    <string name="act_save">Save</string>
 </resources>
