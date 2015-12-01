@@ -7,7 +7,7 @@ import android.preference.PreferenceFragment;
 
 public class SettingsFragment extends PreferenceFragment{
 
-
+	//fragment pour la gestion des langues
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

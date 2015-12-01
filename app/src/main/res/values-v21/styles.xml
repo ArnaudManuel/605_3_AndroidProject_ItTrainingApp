@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
-        <item name="android:textSize">25px</item>
+        <item name="android:textSize">20px</item>
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
+
+    <!-- style pour l'action bar -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#ff0000</item>
     </style>
 
+    <!-- style pour les liste -->
     <style name="ListViewItem" parent="@android:style/Widget.ListView">
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">#000000</item>
@@ -16,6 +19,7 @@
         <item name="android:paddingTop">10dp</item>
     </style>
 
+    <!-- Style pour les textview et edittext -->
     <style name="TextField" parent="@android:style/Widget.TextView">
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">#000000</item>
@@ -24,6 +28,8 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingRight">10dp</item>
     </style>
+
+    <!-- Style pour le titre "next session -->
     <style name="titleSession" parent="@android:style/Widget.TextView">
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">22dp</item>

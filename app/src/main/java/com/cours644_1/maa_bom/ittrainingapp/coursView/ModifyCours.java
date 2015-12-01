@@ -146,7 +146,6 @@ public class ModifyCours extends CustomActivity {
 
         @Override
         public void onClick(View v) {
-
             dataStore.delete(cours);
             finish();
         }

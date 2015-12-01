@@ -18,6 +18,8 @@ import java.util.Locale;
 
 /**
  * Created by Maximilien on 19.11.2015.
+ * Activité pour les settings de l'application
+ * Pour le moment le seul paramètre implémenté c'est la langue
  */
 public class SettingsActivity extends Activity{
     private final String lang = "fr";
