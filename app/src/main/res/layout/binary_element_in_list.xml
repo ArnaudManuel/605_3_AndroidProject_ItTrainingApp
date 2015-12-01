@@ -10,13 +10,15 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:layout_weight="1"
-        android:id="@+id/binary_element_in_list_element" />
+        android:id="@+id/binary_element_in_list_element"
+        style="@style/TextField"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:gravity="right"
-        android:id="@+id/binary_element_in_list_status" />
+        android:id="@+id/binary_element_in_list_status"
+        style="@style/TextField"
+        android:textColor="@color/blue"/>
 </LinearLayout>
