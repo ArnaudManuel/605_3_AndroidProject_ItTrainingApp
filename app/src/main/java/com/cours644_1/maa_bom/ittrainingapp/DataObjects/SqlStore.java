@@ -91,6 +91,8 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
     @Override
     public int save(Student student) {
+        if (student.getName().equals(""))
+            return -1;
         int respons;
         ContentValues values = new ContentValues();
         values.put(iptainingContract.PersonsTable.Name, student.getName());
@@ -254,6 +256,8 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
     @Override
     public int save(Teacher teacher) {
+        if(teacher.getName().equals(""))
+            return -1;
         int respons;
         ContentValues values = new ContentValues();
         values.put(iptainingContract.PersonsTable.Name, teacher.getName());
@@ -448,6 +452,8 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
 
     @Override
     public int save(Cours cours) {
+        if (cours.getName().equals(""))
+            return -1;
         int respons;
         ContentValues values = new ContentValues();
         values.put(iptainingContract.CoursTable.Name, cours.getName());
@@ -493,7 +499,6 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
         db.close();
 
     }
-
 
     @Override
     public Session getSessionById(int id) {
@@ -773,6 +778,7 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
                 curs.close();
 
             }
+
             isclearlyExecuted=true;
         }catch (Exception e){}
 
@@ -792,47 +798,44 @@ public class SqlStore extends SQLiteOpenHelper implements DataStore{
             //forcing return of the operation by user, juged preferable as giving all rooms as available
             return new ArrayList<Room>();
         }
+        List<Room> respons =getRooms();
+        for (Long id : usedRoomIds){
+            Room usedRoom= getRoomById(id.intValue());
+            respons.remove(usedRoom);
+        }
 
-        if(usedRoomIds.size()==0){
-            curs=db.query(
-                    iptainingContract.RoomTable.Table_name,
-                    iptainingContract.RoomTable.ALL,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-            );
-        }else {
-            conds = new String[usedRoomIds.size()];
-            int cpt = 0;
+
+/*
+        if(usedRoomIds.size()==0) {
+            db.close();
+            return getRooms();
+        }
+        else
+        {
             for (Long id : usedRoomIds) {
-                conds[cpt] = id.longValue() + "";
-                ++cpt;
+                conds = new String[]{id.longValue() + ""};
+                clause = iptainingContract.RoomTable._ID + "<>?";
+                curs = db.query(
+                        iptainingContract.RoomTable.Table_name,
+                        iptainingContract.RoomTable.ALL,
+                        clause,
+                        conds,
+                        null,
+                        null,
+                        null
+                );
+                if (curs != null) {
+                    for (curs.moveToFirst(); curs.isAfterLast() == false; curs.moveToNext())
+                        respons.add(new Room(new RoomData(
+                                curs.getInt(curs.getColumnIndex(iptainingContract.RoomTable._ID)),
+                                curs.getString(curs.getColumnIndex(iptainingContract.RoomTable.Name))
+                        )));
+                    curs.close();
+                }
             }
-            clause = iptainingContract.RoomTable._ID + "<>?";
-
-            curs = db.query(
-                    iptainingContract.RoomTable.Table_name,
-                    iptainingContract.RoomTable.ALL,
-                    clause,
-                    conds,
-                    null,
-                    null,
-                    null
-            );
         }
-        List<Room>respons = new ArrayList<Room>();
-        if(curs!=null ) {
-            for (curs.moveToFirst(); curs.isAfterLast()==false; curs.moveToNext())
-                respons.add(new Room(new RoomData(
-                        curs.getInt(curs.getColumnIndex(iptainingContract.RoomTable._ID)),
-                        curs.getString(curs.getColumnIndex(iptainingContract.RoomTable.Name))
-                )));
-            curs.close();
-        }
-
         db.close();
+        */
         return respons;
     }
 

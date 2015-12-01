@@ -44,7 +44,7 @@ public class ModifyCours extends CustomActivity {
         setContentView(R.layout.act_cours_modify);
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        {//seting properties of the object for a clearer acces
+        //seting properties of the object for a clearer acces
             nameTxtBx = (EditText) findViewById(R.id.act_cours_modify_nameTxtBx);
             descriptionTxtBx = (EditText) findViewById(R.id.act_cours_modify_descTxtBx);
             saveButton = (Button) findViewById(R.id.act_cours_modify_saveButton);
@@ -55,34 +55,31 @@ public class ModifyCours extends CustomActivity {
             deleteButton = (Button) findViewById(R.id.act_cours_modify_deleteButton);
 
 
-            //reaserchig of the proper student
-            int coursId = getIntent().getExtras().getInt("coursId", -1);
-            if (coursId < 0) {
-                cours = Cours.newForCreation();
-                deleteButton.setVisibility(View.INVISIBLE);
-            }
-            else {
-                cours = dataStore.getCoursById(coursId).getModificator();
-                deleteButton.setVisibility(View.VISIBLE);
-                deleteButton.setOnClickListener(new DeleteAction());
-            }
-
-
-
-        }
-        {//seting default values in the editText & action listener on button
-            if(cours.getId()<0){
-                //// TODO: 18.11.2015 put some localised context, and do not save default data
-                atributeTeacher.setVisibility(View.INVISIBLE);
-            }
-            else{
-                nameTxtBx.setText(cours.getName());
-                descriptionTxtBx.setText(cours.getDescription());
-                atributeTeacher.setVisibility(View.VISIBLE);
-            }
-
-        }
     }
+    protected void onResume() {
+        super.onResume();
+
+
+        //reaserchig of the proper student
+        int coursId = getIntent().getExtras().getInt("coursId", -1);
+        if (coursId < 0) {
+            cours = Cours.newForCreation();
+            deleteButton.setVisibility(View.INVISIBLE);
+            atributeTeacher.setVisibility(View.INVISIBLE);
+        }
+        else {
+            cours = dataStore.getCoursById(coursId).getModificator();
+            descriptionTxtBx.setText(cours.getDescription());
+            nameTxtBx.setText(cours.getName());
+            atributeTeacher.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(new DeleteAction());
+        }
+
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,7 +143,6 @@ public class ModifyCours extends CustomActivity {
 
         @Override
         public void onClick(View v) {
-
             dataStore.delete(cours);
             finish();
         }

@@ -60,22 +60,27 @@ public class ShowTeacher extends CustomActivity {
 protected void onResume(){
     super.onResume();
     teacher= dataStore.getTeacherById(getIntent().getExtras().getInt("personId"));
-    if(false==teacher.isActive())
+    if(teacher!=null)
+        if(teacher.isActive())
+        {
+            nameTxt.setText(teacher.getName());
+            firstnameTxt.setText(teacher.getFirstname());
+            mailTxt.setText(teacher.getMail());
+            descriptionTxt.setText(teacher.getDescription());
+            modifyButton.setOnClickListener(new ModifyStudentAction());
+
+
+            List<Session> temp = dataStore.getSessionFor(teacher);
+            Collections.sort(temp);
+            Session[] sessions = new Session[temp.size()];
+            temp.toArray(sessions);
+            ArrayAdapter<Session> adapter = new SessionsAdapter(getApplicationContext(), sessions);
+            sessionsListView.setAdapter(adapter);
+        }
+        else
+            finish();
+    else
         finish();
-    nameTxt.setText(teacher.getName());
-    firstnameTxt.setText(teacher.getFirstname());
-    mailTxt.setText(teacher.getMail());
-    descriptionTxt.setText(teacher.getDescription());
-    modifyButton.setOnClickListener(new ModifyStudentAction());
-
-
-
-    List<Session> temp =dataStore.getSessionFor(teacher);
-    Collections.sort(temp);
-    Session[] sessions= new Session[temp.size()];
-    temp.toArray(sessions);
-    ArrayAdapter<Session> adapter = new SessionsAdapter(getApplicationContext(),sessions);
-    sessionsListView.setAdapter(adapter);
 }
 
 
