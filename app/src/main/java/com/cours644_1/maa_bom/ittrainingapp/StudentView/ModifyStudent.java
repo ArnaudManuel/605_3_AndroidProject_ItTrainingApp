@@ -49,31 +49,28 @@ public class ModifyStudent extends CustomActivity {
 
 
             //reaserchig of the proper student
-        int studentId = getIntent().getExtras().getInt("personId", -1);
+
         saveButton.setOnClickListener(new SaveStudentAction());
-        if (studentId < 0) {
-            student = Student.newForCreation();
-            deleteButton.setVisibility(View.INVISIBLE);
-        }
-        else {
-            student = dataStore.getStudentById(studentId).getModificator();
-            deleteButton.setVisibility(View.VISIBLE);
-            deleteButton.setOnClickListener(new DeleteAction());
-        }
+
     }
     @Override
     protected void onResume(){
         super.onResume();
-        if(student.getId()<0){
-            // do nothing
+        int studentId = getIntent().getExtras().getInt("personId", -1);
+        if (studentId < 0) {
+            student = Student.newForCreation();
+            deleteButton.setVisibility(View.INVISIBLE);
+            manageCours.setVisibility(View.INVISIBLE);
         }
-        else{
+        else {
+            student = dataStore.getStudentById(studentId).getModificator();
             nameTxtBx.setText(student.getName());
             firstnameTxtBx.setText(student.getFirstname());
             mailTxtBx.setText(student.getMail());
             manageCours.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(new DeleteAction());
         }
-
     }
 
     @Override
@@ -104,20 +101,13 @@ public class ModifyStudent extends CustomActivity {
 
         @Override
         public void onClick(View v) {
-
             String newName=nameTxtBx.getText().toString();
             String newFirstName=firstnameTxtBx.getText().toString();
             String newMail=mailTxtBx.getText().toString();
-
-            if(!newName.equals(""))
                 student.setName(newName);
-            if(!newFirstName.equals(""))
                 student.setFirstname(newFirstName);
-            if(!newMail.equals(""))
                 student.setMail(newMail);
-
             int newId =dataStore.save(student);
-
 
             if(student.getId()<0){
                 Intent intent = new Intent(ModifyStudent.this.getApplicationContext(),ShowStudent.class);

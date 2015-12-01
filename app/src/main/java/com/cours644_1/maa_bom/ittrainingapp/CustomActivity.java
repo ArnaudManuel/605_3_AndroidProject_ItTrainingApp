@@ -14,12 +14,4 @@ public abstract class CustomActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-
-
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        newConfig.orientation=Configuration.ORIENTATION_PORTRAIT;
-        super.onConfigurationChanged(newConfig);
-    }
 }

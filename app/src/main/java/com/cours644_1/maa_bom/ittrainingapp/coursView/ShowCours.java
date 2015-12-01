@@ -67,18 +67,17 @@ public class ShowCours extends CustomActivity {
         cours= dataStore.getCoursById(getIntent().getExtras().getInt("coursId"));
         if(cours==null)
             finish();
+        else {
+            nameTxt.setText(cours.getName());
+            descriptionTxt.setText(cours.getDescription());
 
-        nameTxt.setText(cours.getName());
-        descriptionTxt.setText(cours.getDescription());
-
-
-
-        List<Session> temp =dataStore.getSessionFor(cours);
-        Collections.sort(temp);
-        Session[] sesions= new Session[temp.size()];
-        temp.toArray(sesions);
-        ArrayAdapter<Session> adapter = new SessionsAdapter(getApplicationContext(),sesions);
-        sessionsListView.setAdapter(adapter);
+            List<Session> temp = dataStore.getSessionFor(cours);
+            Collections.sort(temp);
+            Session[] sesions = new Session[temp.size()];
+            temp.toArray(sesions);
+            ArrayAdapter<Session> adapter = new SessionsAdapter(getApplicationContext(), sesions);
+            sessionsListView.setAdapter(adapter);
+        }
     }
 
     @Override
