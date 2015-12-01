@@ -11,7 +11,7 @@ public abstract class CustomActivity extends Activity {
 
     protected void onResume() {
         super.onResume();
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
 

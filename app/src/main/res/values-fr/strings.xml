@@ -1,15 +1,13 @@
 <resources>
+    <string name="app_name">ItTrainingApp</string>
     <string name="action_settings">Paramètre</string>
     <string name="title_activity_modify_student">Modifier l\'étudiant</string>
     <string name="title_activity_modify_teacher">Modifier l\'enseignant</string>
     <string name="action_modify">Modifier</string>
     <string name="action_delete">Supprimer</string>
     <string name="parametre">Paramètre</string>
-    <string name="theme">Thème</string>
     <string name="pref_summary">Choisir sa langue</string>
     <string name="pref_select_language">Choisir sa langue</string>
-    <string name="langue">Langue</string>
-    <string name="police">Taille de police</string>
     <string name="add_teacher">Ajouter un enseignant</string>
     <string name="name">Nom</string>
     <string name="description">Description</string>

@@ -3,6 +3,7 @@ package com.cours644_1.maa_bom.ittrainingapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
