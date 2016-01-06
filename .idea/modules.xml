@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/605_3_AndroidProject_CLoudApp.iml" filepath="$PROJECT_DIR$/.idea/605_3_AndroidProject_CLoudApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/605_3_AndroidProject_CLoudApp.iml" filepath="$PROJECT_DIR$/605_3_AndroidProject_CLoudApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/605_3_AndroidProject_ItTrainingApp.iml" filepath="$PROJECT_DIR$/605_3_AndroidProject_ItTrainingApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/605_3_AndroidProject_ItTrainingAppReco2.iml" filepath="$PROJECT_DIR$/.idea/605_3_AndroidProject_ItTrainingAppReco2.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/605_3_AndroidProject_ItTrainingAppresco.iml" filepath="$PROJECT_DIR$/.idea/605_3_AndroidProject_ItTrainingAppresco.iml" />
@@ -11,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/backend.iml" filepath="$PROJECT_DIR$/backend/backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/finalCheck.iml" filepath="$PROJECT_DIR$/.idea/finalCheck.iml" />
     </modules>
   </component>

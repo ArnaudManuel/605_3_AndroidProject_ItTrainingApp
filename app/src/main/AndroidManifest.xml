@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cours644_1.maa_bom.ittrainingapp" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -19,75 +21,64 @@
         <!-- setting activity -->
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/parametre"
-            >
+            android:label="@string/parametre" >
         </activity>
         <!-- Student -->
         <activity
             android:name=".StudentView.OneStudent"
-            android:label="@string/select_one_student"
-            >
+            android:label="@string/select_one_student" >
         </activity>
         <activity
             android:name=".StudentView.ShowStudent"
-            android:label="@string/detail_student"
-           >
+            android:label="@string/detail_student" >
         </activity>
         <activity
             android:name=".StudentView.ModifyStudent"
-            android:label="@string/title_activity_modify_student"
-           >
+            android:label="@string/title_activity_modify_student" >
         </activity>
 
         <!-- Teacher -->
         <activity
             android:name=".teacherView.OneTeacher"
-            android:label="@string/manage_teacher"
-            >
+            android:label="@string/manage_teacher" >
         </activity>
         <activity
             android:name=".teacherView.ShowTeacher"
-            android:label="@string/show_teacher"
-            >
+            android:label="@string/show_teacher" >
         </activity>
         <activity
             android:name=".teacherView.ModifyTeacher"
-            android:label="@string/modify_teacher"
-            >
+            android:label="@string/modify_teacher" >
         </activity>
         <activity
             android:name=".teacherView.MultipleTeacher"
-            android:label="@string/select_teacher"></activity>
+            android:label="@string/select_teacher" />
 
         <!-- Cours -->
         <activity
             android:name=".coursView.OneCours"
-            android:label="@string/manage_cours"
-            >
+            android:label="@string/manage_cours" >
         </activity>
         <activity
             android:name=".coursView.ShowCours"
-            android:label="@string/show_cours"
-            >
+            android:label="@string/show_cours" >
         </activity>
         <activity
             android:name=".coursView.ModifyCours"
-            android:label="@string/modify_cours"
-            >
+            android:label="@string/modify_cours" >
         </activity>
         <activity
             android:name=".coursView.CoursSelectorActivity"
-            android:label="@string/choose_cours">
-
+            android:label="@string/choose_cours" >
         </activity>
         <!-- Session -->
-        <activity android:name=".sessionView.SessionsList"
-            android:label="@string/manage_session"
-            >
+        <activity
+            android:name=".sessionView.SessionsList"
+            android:label="@string/manage_session" >
         </activity>
-        <activity android:name=".sessionView.ModifySession"
-            android:label="@string/modify_session">
-
+        <activity
+            android:name=".sessionView.ModifySession"
+            android:label="@string/modify_session" >
         </activity>
     </application>
 
