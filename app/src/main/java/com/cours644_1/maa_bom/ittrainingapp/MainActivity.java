@@ -1,12 +1,14 @@
 package com.cours644_1.maa_bom.ittrainingapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,6 +37,8 @@ public class MainActivity extends CustomActivity {
         Button manageCoursBtn =(Button)findViewById(R.id.act_home_cours_button);
         manageCoursBtn.setOnClickListener(new  ManageCoursAction());
 
+        //tester cloud
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
     }
 
     @Override
